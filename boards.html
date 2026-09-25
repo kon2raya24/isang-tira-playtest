@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Isang Tira playtest pack</title>
+<style>
+:root { --ink:#231c14; --muted:#6b5e4f; --line:#3b2f22; --paper:#fffdf8; --ground:#e9e4da; color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--ground); color:var(--ink); font: 10.5pt/1.38 "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.page { width:210mm; min-height:297mm; margin:10mm auto; padding:12mm 13mm; background:var(--paper); box-shadow:0 1px 6px rgba(0,0,0,.18); break-after:page; page-break-after:always; }
+.page:last-child { break-after:auto; page-break-after:auto; }
+.keypage { min-height:0; }
+@media screen and (max-width: 230mm) { .page { width:auto; min-height:0; margin:16px; padding:16px; } }
+@page { size:A4 portrait; margin:12mm 13mm; }
+@media print { body { background:none; } .page { width:auto; min-height:0; margin:0; padding:0; box-shadow:none; background:none; } }
+h2 { font: 700 20pt/1.1 Georgia, "Iowan Old Style", "Palatino Linotype", serif; margin:2px 0 0; }
+h2 .day { font-weight:400; color:var(--muted); font-size:15pt; margin-left:6px; }
+h3 { font: 700 13pt/1.2 Georgia, "Palatino Linotype", serif; margin:0; }
+h4 { font: 700 10.5pt/1.2 Georgia, "Palatino Linotype", serif; margin:9px 0 3px; text-transform:uppercase; letter-spacing:.04em; }
+.kicker { font-size:8.5pt; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.ph { display:flex; justify-content:space-between; align-items:flex-end; border-bottom:2px solid var(--line); padding-bottom:6px; margin-bottom:8px; }
+.par { display:flex; align-items:center; gap:8px; border:2.5px solid var(--line); border-radius:10px; padding:4px 12px; }
+.par-n { font: 700 30pt/1 Georgia, serif; }
+.par-l { font-weight:700; letter-spacing:.08em; font-size:10pt; line-height:1.1; }
+.par-l span { font-weight:400; letter-spacing:0; font-size:8pt; color:var(--muted); }
+.who { display:flex; gap:18px; font-size:9pt; color:var(--muted); margin-bottom:4px; }
+.who span { flex:1; display:flex; gap:6px; }
+.who i, .fill i { flex:1; border-bottom:1px solid #9a8c7a; min-width:30mm; }
+.board { width:100%; height:auto; display:block; margin:2mm 0 1mm; }
+.board .n { font: 700 34px/1 "Helvetica Neue", Arial, sans-serif; text-anchor:middle; fill:var(--ink); }
+.board .lbl { font: 600 17px "Helvetica Neue", Arial, sans-serif; text-anchor:middle; fill:#4a3d2f; }
+.board .ulo { font: 700 19px Georgia, serif; text-anchor:middle; fill:var(--ink); letter-spacing:.06em; }
+.board .ulo-s { font: 600 14px Georgia, serif; text-anchor:middle; fill:#6b5e4f; }
+.board .ulo-xs { font: italic 11px Georgia, serif; text-anchor:middle; fill:#6b5e4f; }
+.board .chev { fill:none; stroke:#8c7a63; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+.board .wrap { fill:none; stroke:#8c7a63; stroke-width:2.5; stroke-dasharray:5 5; }
+.remind { font-size:9pt; color:var(--muted); margin:0 0 4mm; }
+.attempt { border:1.5px solid var(--line); border-radius:8px; padding:3.2mm 4mm; margin-bottom:3.4mm; }
+.att-h { display:flex; justify-content:space-between; align-items:center; margin-bottom:2mm; }
+.att-n { font: 700 12pt Georgia, serif; }
+.fill { display:flex; gap:6px; font-size:9pt; color:var(--muted); width:55mm; }
+.row { display:flex; align-items:center; gap:8px; margin:1.6mm 0; flex-wrap:wrap; }
+.cap { font-size:9pt; color:var(--muted); }
+.seq { display:flex; gap:2.2mm; flex:1; }
+.seq i { flex:1; height:9mm; border:1px solid #9a8c7a; border-radius:3px; min-width:9mm; }
+.box { width:18mm; height:9mm; border:1.5px solid var(--line); border-radius:3px; margin-right:6mm; }
+.tick { font-size:10pt; }
+.notes i { flex:1; border-bottom:1px solid #9a8c7a; height:6mm; }
+.fac { font-size:9.2pt; line-height:1.33; }
+.cols { display:grid; grid-template-columns:1fr 1fr; gap:7mm; }
+.fac ul, .fac ol { margin:2px 0 4px; padding-left:15px; }
+.fac li { margin:1.5px 0; }
+.fac p { margin:3px 0; }
+.rules > li { margin-bottom:3px; }
+.say li { list-style:none; margin-left:-12px; font-style:italic; }
+.modes { border-collapse:collapse; margin:3px 0 4px; width:100%; }
+.modes th, .modes td { border:1px solid #9a8c7a; padding:2px 6px; text-align:left; }
+.modes th { background:#efe7d8; }
+.modebox { display:flex; gap:8px; align-items:center; flex-wrap:wrap; font-size:9pt; border:1.5px dashed var(--line); border-radius:6px; padding:1.5mm 3mm; margin:1mm 0; }
+.keypage { font-size:9pt; }
+.key { border-top:1.5px solid var(--line); padding-top:3mm; margin-bottom:5mm; break-inside:avoid; }
+.key-h { display:flex; justify-content:space-between; align-items:baseline; gap:8px; flex-wrap:wrap; }
+.mini { font-family: ui-monospace, Menlo, Consolas, monospace; font-size:8.5pt; color:var(--muted); margin:1mm 0 2mm; }
+.kline { margin:1.5mm 0; }
+.kline-h { font-weight:600; }
+.kline ol, .crib ul { margin:1mm 0 1mm; padding-left:18px; }
+.kline li, .crib li { margin:.6mm 0; }
+.gain { font-weight:700; white-space:nowrap; }
+.muted { color:var(--muted); font-weight:400; }
+.small { font-size:8pt; margin-top:1.5mm; }
+</style>
+</head>
+<body>
+<section class="page fac">
+  <header class="ph"><div><div class="kicker">Isang Tira &middot; paper playtest &middot; 10 boards</div><h2>Facilitator sheet</h2></div></header>
+  <div class="cols">
+  <div>
+  <h4>What this session measures</h4>
+  <ul>
+   <li><b>G3:</b> on Wednesday boards W1-W4 played in <b>first-handful</b> mode, how often a tester reaches par on the <b>first</b> attempt. Target: 20-60% of first attempts.</li>
+   <li><b>G4:</b> on relay days (Wednesday and Saturday), how often testers tick <i>guessed</i>. Target: fewer than half of attempts.</li>
+   <li><b>Preview modes:</b> the same numbers in <b>whole-sowing</b> mode, to compare the two previews. See page 2.</li>
+  </ul>
+  <h4>Setup</h4>
+  <ul>
+   <li>Print the ten board pages for each tester. The answer key is not in this online copy; use your local <b>boards.pdf</b>.</li>
+   <li>Use counters (beans, coins, pebbles) on the drawn houses, or let the tester write the counts as they sow.</li>
+   <li>Order: M1-M3 (warm-up; teach the rules here), then W1-W4, then S1-S3. Do not reveal the answer key between boards.</li>
+  </ul>
+  <h4>Rules to read aloud</h4>
+  <ol class="rules">
+   <li>You take <b>one turn</b>. Your score is the number of shells you put into <b>your ulo</b> during it. <b>Par</b> is the best score possible.</li>
+   <li>Choose any house in <b>your row</b> (bottom) that has shells. Pick them all up and drop one in each slot along the path: Y0 &rarr; &hellip; &rarr; Y6 &rarr; your ulo &rarr; L0 &rarr; &hellip; &rarr; L6 &rarr; Y0 &hellip; Lola's ulo is never sown. Burnt houses are skipped.</li>
+   <li>Where the <b>last</b> shell lands decides what happens:
+    <ul>
+     <li><b>your ulo</b>: extra turn. You must choose again, from any house of yours with shells.</li>
+     <li>a house (either row) that <b>already had shells</b>: <b>relay</b>. Pick up everything in it and keep sowing from the next slot.</li>
+     <li>an <b>empty house in your row</b>: if the Lola house opposite has shells, <b>capture</b> them and this last shell into your ulo; otherwise nothing happens (a dud). Either way, the turn ends.</li>
+     <li>an <b>empty Lola house</b>: the turn ends.</li>
+    </ul></li>
+   <li>A handful big enough to go all the way round also drops into the house it came from.</li>
+   <li>When the turn ends, if Lola's row is empty, every shell left in your row goes to your ulo. <span class="muted">(Facilitator note: this cannot happen on any of these ten boards.)</span></li>
+  </ol>
+  </div>
+  <div>
+  <h4>Acting as the preview: first-handful mode</h4>
+  <p>The tester may point at a house and ask what it does <b>before</b> committing. Answer about the <b>first handful only</b>:</p>
+  <ol class="rules">
+   <li>Count the shells in the house (N). Starting from the next slot, count N slots along the path. Skip burnt houses and Lola's ulo. The house itself counts if the handful comes all the way round.</li>
+   <li>Say where the last shell lands and what that means, in one of these forms:
+    <ul class="say">
+     <li>&ldquo;It ends in your ulo: extra turn.&rdquo;</li>
+     <li>&ldquo;It ends in Y4, which already has shells: relay.&rdquo; <b>Stop there.</b></li>
+     <li>&ldquo;It ends in your empty Y2; L4 opposite has 3: you'd capture 4.&rdquo;</li>
+     <li>&ldquo;It ends in your empty Y2; L4 opposite is empty: dud, the turn ends.&rdquo;</li>
+     <li>&ldquo;It ends in Lola's empty L3: the turn ends.&rdquo;</li>
+    </ul></li>
+   <li>If the handful passes your ulo, add &ldquo;&hellip; and it drops one in your ulo on the way.&rdquo;</li>
+  </ol>
+  <p><b>Never</b> say where a relay goes, whether a move is good, or compare houses. Preview as often as asked. Count it out, or use <b>helper.html</b> (page 2), which gives the exact line to read. Whole-sowing mode is on page 2.</p>
+  <h4>Running each board</h4>
+  <ul>
+   <li>Up to three attempts. Reset the counters to the printed numbers before each attempt. Stop as soon as the tester reaches par.</li>
+   <li>The tester sows; you check the counting. If a miscount changes the outcome, replay that sowing correctly and note it.</li>
+   <li>After each attempt, ask <i>&ldquo;Did you work that out, or guess?&rdquo;</i> and tick the box they choose. Do not suggest an answer.</li>
+   <li>Record the houses in order and the score. <b>helper.html</b> shows the score and whether it reached par.</li>
+  </ul>
+  <h4>Report back, per tester</h4>
+  <ul>
+   <li>W1-W4: par on attempt 1 (yes/no), attempts to par (1, 2, 3 or none).</li>
+   <li>All W and S attempts: the <i>worked it out / partly guessed / guessed</i> tick.</li>
+   <li>Minutes per board, and any rule the tester misunderstood.</li>
+   <li>The tester's group and each board's preview mode (page 2).</li>
+  </ul>
+  </div>
+  </div>
+</section>
+<section class="page fac">
+  <header class="ph"><div><div class="kicker">Isang Tira &middot; paper playtest</div><h2>Facilitator sheet, page 2: two preview modes</h2></div></header>
+  <div class="cols">
+  <div>
+  <h4>Why two modes</h4>
+  <p>The spike's biggest open question is the preview.</p>
+  <ul>
+   <li><b>First handful:</b> you say only where the first handful ends, and stop at a relay. Counting relays is the tester's job.</li>
+   <li><b>Whole sowing:</b> you say where the whole sowing ends, relays included, and how many shells it adds to the ulo. The puzzle becomes choosing the order.</li>
+  </ul>
+  <p>Each tester plays every Wednesday and Saturday board in one mode, following the table, so the two modes can be compared.</p>
+  <h4>Groups</h4>
+  <p>Put testers in Group A and Group B alternately as they arrive (A, B, A, B&hellip;). Monday boards always use first-handful mode.</p>
+  <table class="modes"><tr><th>Board</th><th>Group A</th><th>Group B</th></tr><tr><td>W1</td><td>first handful</td><td>whole sowing</td></tr><tr><td>W2</td><td>first handful</td><td>whole sowing</td></tr><tr><td>W3</td><td>whole sowing</td><td>first handful</td></tr><tr><td>W4</td><td>whole sowing</td><td>first handful</td></tr><tr><td>S1</td><td>first handful</td><td>whole sowing</td></tr><tr><td>S2</td><td>whole sowing</td><td>first handful</td></tr><tr><td>S3</td><td>first handful</td><td>whole sowing</td></tr></table>
+  <p class="muted">In each mode, each group gets one Wednesday board the preview-only bot solves and one it does not.</p>
+  </div>
+  <div>
+  <h4>Using helper.html</h4>
+  <ol class="rules">
+   <li>Open <b>helper.html</b> (same folder as this pack) in a browser on your laptop. It works offline.</li>
+   <li>Pick the tester's group and the board. The badge shows the mode for that board, taken from the table.</li>
+   <li>When the tester points at a house, read that house's line aloud, word for word. Whole-sowing example: &ldquo;It relays at Y5, then ends in your ulo: extra turn. This sowing adds 1 to your ulo.&rdquo;</li>
+   <li>When the tester commits, click <i>Tester sows</i> for that house and let them sow the counters. If the counters come out different from the helper's board, correct the counters.</li>
+   <li>When the turn ends, the helper shows the score and the houses to write down. Use <i>Start attempt 2</i> for the next attempt, and <i>Undo last sowing</i> for a mis-click.</li>
+  </ol>
+  <p>Never read the other mode's line, and never say whether a move is good.</p>
+  <h4>Report back, per tester (as well as page 1)</h4>
+  <ul>
+   <li>The group, and the preview mode ticked on each board page.</li>
+   <li>At the end, ask: &ldquo;Which boards were more fun: the ones where I told you only the first handful, or the whole sowing? Why?&rdquo; Write the answer down in their words.</li>
+  </ul>
+  </div>
+  </div>
+</section>
+<section class="page">
+  <header class="ph"><div><div class="kicker">Isang Tira &middot; paper playtest</div><h2>Board M1 <span class="day">Monday</span></h2></div>
+  <div class="par"><div class="par-n">6</div><div class="par-l">PAR<br><span>best possible score</span></div></div></header>
+  <div class="who"><span>Tester <i></i></span><span>Facilitator <i></i></span><span>Date <i></i></span></div>
+  
+  <svg viewBox="0 0 900 312" class="board" role="img" aria-label="Sungka board M1">
+  <defs><pattern id="hatch-M1" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#e6e0d6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#8c8173" stroke-width="3"/></pattern></defs>
+  <rect x="6" y="46" width="888" height="218" rx="104" fill="#f6ecda" stroke="#3b2f22" stroke-width="3"/>
+  <ellipse cx="66" cy="155" rx="36" ry="84" fill="#ece3d2" stroke="#8c8173" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="66" y="150" class="ulo-s">Lola's</text><text x="66" y="168" class="ulo-s">ulo</text><text x="66" y="186" class="ulo-xs">never sown</text>
+  <ellipse cx="832" cy="155" rx="44" ry="92" fill="#fffdf8" stroke="#3b2f22" stroke-width="3"/>
+  <text x="832" y="150" class="ulo">YOUR</text><text x="832" y="172" class="ulo">ULO</text><g><circle cx="170" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="104" class="n">0</text>
+      <text x="170" y="30" class="lbl">L6</text></g><g><circle cx="262" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="104" class="n">0</text>
+      <text x="262" y="30" class="lbl">L5</text></g><g><circle cx="354" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="104" class="n">0</text>
+      <text x="354" y="30" class="lbl">L4</text></g><g><circle cx="446" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="104" class="n">1</text>
+      <text x="446" y="30" class="lbl">L3</text></g><g><circle cx="538" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="104" class="n">1</text>
+      <text x="538" y="30" class="lbl">L2</text></g><g><circle cx="630" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="104" class="n">2</text>
+      <text x="630" y="30" class="lbl">L1</text></g><g><circle cx="722" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="104" class="n">3</text>
+      <text x="722" y="30" class="lbl">L0</text></g><g><circle cx="170" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="230" class="n">0</text>
+      <text x="170" y="298" class="lbl">Y0</text></g><g><circle cx="262" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="230" class="n">2</text>
+      <text x="262" y="298" class="lbl">Y1</text></g><g><circle cx="354" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="230" class="n">0</text>
+      <text x="354" y="298" class="lbl">Y2</text></g><g><circle cx="446" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="230" class="n">0</text>
+      <text x="446" y="298" class="lbl">Y3</text></g><g><circle cx="538" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="230" class="n">2</text>
+      <text x="538" y="298" class="lbl">Y4</text></g><g><circle cx="630" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="230" class="n">2</text>
+      <text x="630" y="298" class="lbl">Y5</text></g><g><circle cx="722" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="230" class="n">0</text>
+      <text x="722" y="298" class="lbl">Y6</text></g><path d="M211 211L221 218L211 225" class="chev"/><path d="M221 85L211 92L221 99" class="chev"/><path d="M303 211L313 218L303 225" class="chev"/><path d="M313 85L303 92L313 99" class="chev"/><path d="M395 211L405 218L395 225" class="chev"/><path d="M405 85L395 92L405 99" class="chev"/><path d="M487 211L497 218L487 225" class="chev"/><path d="M497 85L487 92L497 99" class="chev"/><path d="M579 211L589 218L579 225" class="chev"/><path d="M589 85L579 92L589 99" class="chev"/><path d="M671 211L681 218L671 225" class="chev"/><path d="M681 85L671 92L681 99" class="chev"/><path d="M769 211L779 218L769 225" class="chev"/><path d="M779 85L769 92L779 99" class="chev"/><path d="M126 94 C 106 132, 106 178, 126 204" class="wrap"/><path d="M117 196L126 206L133 194" class="chev"/></svg>
+  <p class="remind">Take one whole turn. Score = shells you add to <b>your ulo</b>. Path: Y0 &rarr; Y6 &rarr; your ulo &rarr; L0 &rarr; L6 &rarr; Y0 (Lola's ulo is never sown). Ask the facilitator to preview a house before you commit to it. Up to three attempts; reset the board between attempts.</p>
+  <div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 1</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 2</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 3</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div>
+</section>
+<section class="page">
+  <header class="ph"><div><div class="kicker">Isang Tira &middot; paper playtest</div><h2>Board M2 <span class="day">Monday</span></h2></div>
+  <div class="par"><div class="par-n">6</div><div class="par-l">PAR<br><span>best possible score</span></div></div></header>
+  <div class="who"><span>Tester <i></i></span><span>Facilitator <i></i></span><span>Date <i></i></span></div>
+  
+  <svg viewBox="0 0 900 312" class="board" role="img" aria-label="Sungka board M2">
+  <defs><pattern id="hatch-M2" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#e6e0d6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#8c8173" stroke-width="3"/></pattern></defs>
+  <rect x="6" y="46" width="888" height="218" rx="104" fill="#f6ecda" stroke="#3b2f22" stroke-width="3"/>
+  <ellipse cx="66" cy="155" rx="36" ry="84" fill="#ece3d2" stroke="#8c8173" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="66" y="150" class="ulo-s">Lola's</text><text x="66" y="168" class="ulo-s">ulo</text><text x="66" y="186" class="ulo-xs">never sown</text>
+  <ellipse cx="832" cy="155" rx="44" ry="92" fill="#fffdf8" stroke="#3b2f22" stroke-width="3"/>
+  <text x="832" y="150" class="ulo">YOUR</text><text x="832" y="172" class="ulo">ULO</text><g><circle cx="170" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="104" class="n">1</text>
+      <text x="170" y="30" class="lbl">L6</text></g><g><circle cx="262" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="104" class="n">0</text>
+      <text x="262" y="30" class="lbl">L5</text></g><g><circle cx="354" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="104" class="n">0</text>
+      <text x="354" y="30" class="lbl">L4</text></g><g><circle cx="446" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="104" class="n">3</text>
+      <text x="446" y="30" class="lbl">L3</text></g><g><circle cx="538" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="104" class="n">0</text>
+      <text x="538" y="30" class="lbl">L2</text></g><g><circle cx="630" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="104" class="n">0</text>
+      <text x="630" y="30" class="lbl">L1</text></g><g><circle cx="722" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="104" class="n">3</text>
+      <text x="722" y="30" class="lbl">L0</text></g><g><circle cx="170" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="230" class="n">2</text>
+      <text x="170" y="298" class="lbl">Y0</text></g><g><circle cx="262" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="230" class="n">0</text>
+      <text x="262" y="298" class="lbl">Y1</text></g><g><circle cx="354" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="230" class="n">1</text>
+      <text x="354" y="298" class="lbl">Y2</text></g><g><circle cx="446" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="230" class="n">0</text>
+      <text x="446" y="298" class="lbl">Y3</text></g><g><circle cx="538" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="230" class="n">3</text>
+      <text x="538" y="298" class="lbl">Y4</text></g><g><circle cx="630" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="230" class="n">0</text>
+      <text x="630" y="298" class="lbl">Y5</text></g><g><circle cx="722" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="230" class="n">0</text>
+      <text x="722" y="298" class="lbl">Y6</text></g><path d="M211 211L221 218L211 225" class="chev"/><path d="M221 85L211 92L221 99" class="chev"/><path d="M303 211L313 218L303 225" class="chev"/><path d="M313 85L303 92L313 99" class="chev"/><path d="M395 211L405 218L395 225" class="chev"/><path d="M405 85L395 92L405 99" class="chev"/><path d="M487 211L497 218L487 225" class="chev"/><path d="M497 85L487 92L497 99" class="chev"/><path d="M579 211L589 218L579 225" class="chev"/><path d="M589 85L579 92L589 99" class="chev"/><path d="M671 211L681 218L671 225" class="chev"/><path d="M681 85L671 92L681 99" class="chev"/><path d="M769 211L779 218L769 225" class="chev"/><path d="M779 85L769 92L779 99" class="chev"/><path d="M126 94 C 106 132, 106 178, 126 204" class="wrap"/><path d="M117 196L126 206L133 194" class="chev"/></svg>
+  <p class="remind">Take one whole turn. Score = shells you add to <b>your ulo</b>. Path: Y0 &rarr; Y6 &rarr; your ulo &rarr; L0 &rarr; L6 &rarr; Y0 (Lola's ulo is never sown). Ask the facilitator to preview a house before you commit to it. Up to three attempts; reset the board between attempts.</p>
+  <div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 1</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 2</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 3</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div>
+</section>
+<section class="page">
+  <header class="ph"><div><div class="kicker">Isang Tira &middot; paper playtest</div><h2>Board M3 <span class="day">Monday</span></h2></div>
+  <div class="par"><div class="par-n">6</div><div class="par-l">PAR<br><span>best possible score</span></div></div></header>
+  <div class="who"><span>Tester <i></i></span><span>Facilitator <i></i></span><span>Date <i></i></span></div>
+  
+  <svg viewBox="0 0 900 312" class="board" role="img" aria-label="Sungka board M3">
+  <defs><pattern id="hatch-M3" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#e6e0d6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#8c8173" stroke-width="3"/></pattern></defs>
+  <rect x="6" y="46" width="888" height="218" rx="104" fill="#f6ecda" stroke="#3b2f22" stroke-width="3"/>
+  <ellipse cx="66" cy="155" rx="36" ry="84" fill="#ece3d2" stroke="#8c8173" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="66" y="150" class="ulo-s">Lola's</text><text x="66" y="168" class="ulo-s">ulo</text><text x="66" y="186" class="ulo-xs">never sown</text>
+  <ellipse cx="832" cy="155" rx="44" ry="92" fill="#fffdf8" stroke="#3b2f22" stroke-width="3"/>
+  <text x="832" y="150" class="ulo">YOUR</text><text x="832" y="172" class="ulo">ULO</text><g><circle cx="170" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="104" class="n">4</text>
+      <text x="170" y="30" class="lbl">L6</text></g><g><circle cx="262" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="104" class="n">0</text>
+      <text x="262" y="30" class="lbl">L5</text></g><g><circle cx="354" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="104" class="n">4</text>
+      <text x="354" y="30" class="lbl">L4</text></g><g><circle cx="446" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="104" class="n">2</text>
+      <text x="446" y="30" class="lbl">L3</text></g><g><circle cx="538" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="104" class="n">1</text>
+      <text x="538" y="30" class="lbl">L2</text></g><g><circle cx="630" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="104" class="n">2</text>
+      <text x="630" y="30" class="lbl">L1</text></g><g><circle cx="722" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="104" class="n">0</text>
+      <text x="722" y="30" class="lbl">L0</text></g><g><circle cx="170" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="230" class="n">0</text>
+      <text x="170" y="298" class="lbl">Y0</text></g><g><circle cx="262" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="230" class="n">1</text>
+      <text x="262" y="298" class="lbl">Y1</text></g><g><circle cx="354" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="230" class="n">0</text>
+      <text x="354" y="298" class="lbl">Y2</text></g><g><circle cx="446" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="230" class="n">4</text>
+      <text x="446" y="298" class="lbl">Y3</text></g><g><circle cx="538" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="230" class="n">0</text>
+      <text x="538" y="298" class="lbl">Y4</text></g><g><circle cx="630" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="230" class="n">4</text>
+      <text x="630" y="298" class="lbl">Y5</text></g><g><circle cx="722" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="230" class="n">3</text>
+      <text x="722" y="298" class="lbl">Y6</text></g><path d="M211 211L221 218L211 225" class="chev"/><path d="M221 85L211 92L221 99" class="chev"/><path d="M303 211L313 218L303 225" class="chev"/><path d="M313 85L303 92L313 99" class="chev"/><path d="M395 211L405 218L395 225" class="chev"/><path d="M405 85L395 92L405 99" class="chev"/><path d="M487 211L497 218L487 225" class="chev"/><path d="M497 85L487 92L497 99" class="chev"/><path d="M579 211L589 218L579 225" class="chev"/><path d="M589 85L579 92L589 99" class="chev"/><path d="M671 211L681 218L671 225" class="chev"/><path d="M681 85L671 92L681 99" class="chev"/><path d="M769 211L779 218L769 225" class="chev"/><path d="M779 85L769 92L779 99" class="chev"/><path d="M126 94 C 106 132, 106 178, 126 204" class="wrap"/><path d="M117 196L126 206L133 194" class="chev"/></svg>
+  <p class="remind">Take one whole turn. Score = shells you add to <b>your ulo</b>. Path: Y0 &rarr; Y6 &rarr; your ulo &rarr; L0 &rarr; L6 &rarr; Y0 (Lola's ulo is never sown). Ask the facilitator to preview a house before you commit to it. Up to three attempts; reset the board between attempts.</p>
+  <div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 1</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 2</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 3</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div>
+</section>
+<section class="page">
+  <header class="ph"><div><div class="kicker">Isang Tira &middot; paper playtest</div><h2>Board W1 <span class="day">Wednesday</span></h2></div>
+  <div class="par"><div class="par-n">7</div><div class="par-l">PAR<br><span>best possible score</span></div></div></header>
+  <div class="who"><span>Tester <i></i></span><span>Facilitator <i></i></span><span>Date <i></i></span></div>
+  <div class="modebox"><span class="cap">Group</span><span class="tick">&#9744; A &nbsp; &#9744; B</span><span class="cap">Preview mode</span><span class="tick">&#9744; first handful &nbsp; &#9744; whole sowing</span><span class="muted">A: first handful &middot; B: whole sowing</span></div>
+  <svg viewBox="0 0 900 312" class="board" role="img" aria-label="Sungka board W1">
+  <defs><pattern id="hatch-W1" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#e6e0d6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#8c8173" stroke-width="3"/></pattern></defs>
+  <rect x="6" y="46" width="888" height="218" rx="104" fill="#f6ecda" stroke="#3b2f22" stroke-width="3"/>
+  <ellipse cx="66" cy="155" rx="36" ry="84" fill="#ece3d2" stroke="#8c8173" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="66" y="150" class="ulo-s">Lola's</text><text x="66" y="168" class="ulo-s">ulo</text><text x="66" y="186" class="ulo-xs">never sown</text>
+  <ellipse cx="832" cy="155" rx="44" ry="92" fill="#fffdf8" stroke="#3b2f22" stroke-width="3"/>
+  <text x="832" y="150" class="ulo">YOUR</text><text x="832" y="172" class="ulo">ULO</text><g><circle cx="170" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="104" class="n">3</text>
+      <text x="170" y="30" class="lbl">L6</text></g><g><circle cx="262" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="104" class="n">0</text>
+      <text x="262" y="30" class="lbl">L5</text></g><g><circle cx="354" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="104" class="n">2</text>
+      <text x="354" y="30" class="lbl">L4</text></g><g><circle cx="446" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="104" class="n">0</text>
+      <text x="446" y="30" class="lbl">L3</text></g><g><circle cx="538" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="104" class="n">0</text>
+      <text x="538" y="30" class="lbl">L2</text></g><g><circle cx="630" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="104" class="n">1</text>
+      <text x="630" y="30" class="lbl">L1</text></g><g><circle cx="722" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="104" class="n">4</text>
+      <text x="722" y="30" class="lbl">L0</text></g><g><circle cx="170" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="230" class="n">1</text>
+      <text x="170" y="298" class="lbl">Y0</text></g><g><circle cx="262" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="230" class="n">1</text>
+      <text x="262" y="298" class="lbl">Y1</text></g><g><circle cx="354" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="230" class="n">3</text>
+      <text x="354" y="298" class="lbl">Y2</text></g><g><circle cx="446" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="230" class="n">0</text>
+      <text x="446" y="298" class="lbl">Y3</text></g><g><circle cx="538" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="230" class="n">0</text>
+      <text x="538" y="298" class="lbl">Y4</text></g><g><circle cx="630" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="230" class="n">1</text>
+      <text x="630" y="298" class="lbl">Y5</text></g><g><circle cx="722" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="230" class="n">0</text>
+      <text x="722" y="298" class="lbl">Y6</text></g><path d="M211 211L221 218L211 225" class="chev"/><path d="M221 85L211 92L221 99" class="chev"/><path d="M303 211L313 218L303 225" class="chev"/><path d="M313 85L303 92L313 99" class="chev"/><path d="M395 211L405 218L395 225" class="chev"/><path d="M405 85L395 92L405 99" class="chev"/><path d="M487 211L497 218L487 225" class="chev"/><path d="M497 85L487 92L497 99" class="chev"/><path d="M579 211L589 218L579 225" class="chev"/><path d="M589 85L579 92L589 99" class="chev"/><path d="M671 211L681 218L671 225" class="chev"/><path d="M681 85L671 92L681 99" class="chev"/><path d="M769 211L779 218L769 225" class="chev"/><path d="M779 85L769 92L779 99" class="chev"/><path d="M126 94 C 106 132, 106 178, 126 204" class="wrap"/><path d="M117 196L126 206L133 194" class="chev"/></svg>
+  <p class="remind">Take one whole turn. Score = shells you add to <b>your ulo</b>. Path: Y0 &rarr; Y6 &rarr; your ulo &rarr; L0 &rarr; L6 &rarr; Y0 (Lola's ulo is never sown). Ask the facilitator to preview a house before you commit to it. Up to three attempts; reset the board between attempts.</p>
+  <div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 1</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 2</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 3</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div>
+</section>
+<section class="page">
+  <header class="ph"><div><div class="kicker">Isang Tira &middot; paper playtest</div><h2>Board W2 <span class="day">Wednesday</span></h2></div>
+  <div class="par"><div class="par-n">7</div><div class="par-l">PAR<br><span>best possible score</span></div></div></header>
+  <div class="who"><span>Tester <i></i></span><span>Facilitator <i></i></span><span>Date <i></i></span></div>
+  <div class="modebox"><span class="cap">Group</span><span class="tick">&#9744; A &nbsp; &#9744; B</span><span class="cap">Preview mode</span><span class="tick">&#9744; first handful &nbsp; &#9744; whole sowing</span><span class="muted">A: first handful &middot; B: whole sowing</span></div>
+  <svg viewBox="0 0 900 312" class="board" role="img" aria-label="Sungka board W2">
+  <defs><pattern id="hatch-W2" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#e6e0d6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#8c8173" stroke-width="3"/></pattern></defs>
+  <rect x="6" y="46" width="888" height="218" rx="104" fill="#f6ecda" stroke="#3b2f22" stroke-width="3"/>
+  <ellipse cx="66" cy="155" rx="36" ry="84" fill="#ece3d2" stroke="#8c8173" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="66" y="150" class="ulo-s">Lola's</text><text x="66" y="168" class="ulo-s">ulo</text><text x="66" y="186" class="ulo-xs">never sown</text>
+  <ellipse cx="832" cy="155" rx="44" ry="92" fill="#fffdf8" stroke="#3b2f22" stroke-width="3"/>
+  <text x="832" y="150" class="ulo">YOUR</text><text x="832" y="172" class="ulo">ULO</text><g><circle cx="170" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="104" class="n">0</text>
+      <text x="170" y="30" class="lbl">L6</text></g><g><circle cx="262" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="104" class="n">4</text>
+      <text x="262" y="30" class="lbl">L5</text></g><g><circle cx="354" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="104" class="n">2</text>
+      <text x="354" y="30" class="lbl">L4</text></g><g><circle cx="446" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="104" class="n">0</text>
+      <text x="446" y="30" class="lbl">L3</text></g><g><circle cx="538" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="104" class="n">2</text>
+      <text x="538" y="30" class="lbl">L2</text></g><g><circle cx="630" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="104" class="n">1</text>
+      <text x="630" y="30" class="lbl">L1</text></g><g><circle cx="722" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="104" class="n">0</text>
+      <text x="722" y="30" class="lbl">L0</text></g><g><circle cx="170" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="230" class="n">1</text>
+      <text x="170" y="298" class="lbl">Y0</text></g><g><circle cx="262" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="230" class="n">4</text>
+      <text x="262" y="298" class="lbl">Y1</text></g><g><circle cx="354" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="230" class="n">0</text>
+      <text x="354" y="298" class="lbl">Y2</text></g><g><circle cx="446" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="230" class="n">1</text>
+      <text x="446" y="298" class="lbl">Y3</text></g><g><circle cx="538" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="230" class="n">1</text>
+      <text x="538" y="298" class="lbl">Y4</text></g><g><circle cx="630" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="230" class="n">1</text>
+      <text x="630" y="298" class="lbl">Y5</text></g><g><circle cx="722" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="230" class="n">0</text>
+      <text x="722" y="298" class="lbl">Y6</text></g><path d="M211 211L221 218L211 225" class="chev"/><path d="M221 85L211 92L221 99" class="chev"/><path d="M303 211L313 218L303 225" class="chev"/><path d="M313 85L303 92L313 99" class="chev"/><path d="M395 211L405 218L395 225" class="chev"/><path d="M405 85L395 92L405 99" class="chev"/><path d="M487 211L497 218L487 225" class="chev"/><path d="M497 85L487 92L497 99" class="chev"/><path d="M579 211L589 218L579 225" class="chev"/><path d="M589 85L579 92L589 99" class="chev"/><path d="M671 211L681 218L671 225" class="chev"/><path d="M681 85L671 92L681 99" class="chev"/><path d="M769 211L779 218L769 225" class="chev"/><path d="M779 85L769 92L779 99" class="chev"/><path d="M126 94 C 106 132, 106 178, 126 204" class="wrap"/><path d="M117 196L126 206L133 194" class="chev"/></svg>
+  <p class="remind">Take one whole turn. Score = shells you add to <b>your ulo</b>. Path: Y0 &rarr; Y6 &rarr; your ulo &rarr; L0 &rarr; L6 &rarr; Y0 (Lola's ulo is never sown). Ask the facilitator to preview a house before you commit to it. Up to three attempts; reset the board between attempts.</p>
+  <div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 1</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 2</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 3</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div>
+</section>
+<section class="page">
+  <header class="ph"><div><div class="kicker">Isang Tira &middot; paper playtest</div><h2>Board W3 <span class="day">Wednesday</span></h2></div>
+  <div class="par"><div class="par-n">7</div><div class="par-l">PAR<br><span>best possible score</span></div></div></header>
+  <div class="who"><span>Tester <i></i></span><span>Facilitator <i></i></span><span>Date <i></i></span></div>
+  <div class="modebox"><span class="cap">Group</span><span class="tick">&#9744; A &nbsp; &#9744; B</span><span class="cap">Preview mode</span><span class="tick">&#9744; first handful &nbsp; &#9744; whole sowing</span><span class="muted">A: whole sowing &middot; B: first handful</span></div>
+  <svg viewBox="0 0 900 312" class="board" role="img" aria-label="Sungka board W3">
+  <defs><pattern id="hatch-W3" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#e6e0d6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#8c8173" stroke-width="3"/></pattern></defs>
+  <rect x="6" y="46" width="888" height="218" rx="104" fill="#f6ecda" stroke="#3b2f22" stroke-width="3"/>
+  <ellipse cx="66" cy="155" rx="36" ry="84" fill="#ece3d2" stroke="#8c8173" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="66" y="150" class="ulo-s">Lola's</text><text x="66" y="168" class="ulo-s">ulo</text><text x="66" y="186" class="ulo-xs">never sown</text>
+  <ellipse cx="832" cy="155" rx="44" ry="92" fill="#fffdf8" stroke="#3b2f22" stroke-width="3"/>
+  <text x="832" y="150" class="ulo">YOUR</text><text x="832" y="172" class="ulo">ULO</text><g><circle cx="170" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="104" class="n">0</text>
+      <text x="170" y="30" class="lbl">L6</text></g><g><circle cx="262" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="104" class="n">2</text>
+      <text x="262" y="30" class="lbl">L5</text></g><g><circle cx="354" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="104" class="n">4</text>
+      <text x="354" y="30" class="lbl">L4</text></g><g><circle cx="446" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="104" class="n">2</text>
+      <text x="446" y="30" class="lbl">L3</text></g><g><circle cx="538" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="104" class="n">2</text>
+      <text x="538" y="30" class="lbl">L2</text></g><g><circle cx="630" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="104" class="n">0</text>
+      <text x="630" y="30" class="lbl">L1</text></g><g><circle cx="722" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="104" class="n">0</text>
+      <text x="722" y="30" class="lbl">L0</text></g><g><circle cx="170" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="230" class="n">2</text>
+      <text x="170" y="298" class="lbl">Y0</text></g><g><circle cx="262" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="230" class="n">2</text>
+      <text x="262" y="298" class="lbl">Y1</text></g><g><circle cx="354" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="230" class="n">0</text>
+      <text x="354" y="298" class="lbl">Y2</text></g><g><circle cx="446" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="230" class="n">1</text>
+      <text x="446" y="298" class="lbl">Y3</text></g><g><circle cx="538" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="230" class="n">2</text>
+      <text x="538" y="298" class="lbl">Y4</text></g><g><circle cx="630" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="230" class="n">1</text>
+      <text x="630" y="298" class="lbl">Y5</text></g><g><circle cx="722" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="230" class="n">2</text>
+      <text x="722" y="298" class="lbl">Y6</text></g><path d="M211 211L221 218L211 225" class="chev"/><path d="M221 85L211 92L221 99" class="chev"/><path d="M303 211L313 218L303 225" class="chev"/><path d="M313 85L303 92L313 99" class="chev"/><path d="M395 211L405 218L395 225" class="chev"/><path d="M405 85L395 92L405 99" class="chev"/><path d="M487 211L497 218L487 225" class="chev"/><path d="M497 85L487 92L497 99" class="chev"/><path d="M579 211L589 218L579 225" class="chev"/><path d="M589 85L579 92L589 99" class="chev"/><path d="M671 211L681 218L671 225" class="chev"/><path d="M681 85L671 92L681 99" class="chev"/><path d="M769 211L779 218L769 225" class="chev"/><path d="M779 85L769 92L779 99" class="chev"/><path d="M126 94 C 106 132, 106 178, 126 204" class="wrap"/><path d="M117 196L126 206L133 194" class="chev"/></svg>
+  <p class="remind">Take one whole turn. Score = shells you add to <b>your ulo</b>. Path: Y0 &rarr; Y6 &rarr; your ulo &rarr; L0 &rarr; L6 &rarr; Y0 (Lola's ulo is never sown). Ask the facilitator to preview a house before you commit to it. Up to three attempts; reset the board between attempts.</p>
+  <div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 1</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 2</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 3</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div>
+</section>
+<section class="page">
+  <header class="ph"><div><div class="kicker">Isang Tira &middot; paper playtest</div><h2>Board W4 <span class="day">Wednesday</span></h2></div>
+  <div class="par"><div class="par-n">7</div><div class="par-l">PAR<br><span>best possible score</span></div></div></header>
+  <div class="who"><span>Tester <i></i></span><span>Facilitator <i></i></span><span>Date <i></i></span></div>
+  <div class="modebox"><span class="cap">Group</span><span class="tick">&#9744; A &nbsp; &#9744; B</span><span class="cap">Preview mode</span><span class="tick">&#9744; first handful &nbsp; &#9744; whole sowing</span><span class="muted">A: whole sowing &middot; B: first handful</span></div>
+  <svg viewBox="0 0 900 312" class="board" role="img" aria-label="Sungka board W4">
+  <defs><pattern id="hatch-W4" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#e6e0d6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#8c8173" stroke-width="3"/></pattern></defs>
+  <rect x="6" y="46" width="888" height="218" rx="104" fill="#f6ecda" stroke="#3b2f22" stroke-width="3"/>
+  <ellipse cx="66" cy="155" rx="36" ry="84" fill="#ece3d2" stroke="#8c8173" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="66" y="150" class="ulo-s">Lola's</text><text x="66" y="168" class="ulo-s">ulo</text><text x="66" y="186" class="ulo-xs">never sown</text>
+  <ellipse cx="832" cy="155" rx="44" ry="92" fill="#fffdf8" stroke="#3b2f22" stroke-width="3"/>
+  <text x="832" y="150" class="ulo">YOUR</text><text x="832" y="172" class="ulo">ULO</text><g><circle cx="170" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="104" class="n">0</text>
+      <text x="170" y="30" class="lbl">L6</text></g><g><circle cx="262" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="104" class="n">2</text>
+      <text x="262" y="30" class="lbl">L5</text></g><g><circle cx="354" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="104" class="n">7</text>
+      <text x="354" y="30" class="lbl">L4</text></g><g><circle cx="446" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="104" class="n">1</text>
+      <text x="446" y="30" class="lbl">L3</text></g><g><circle cx="538" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="104" class="n">4</text>
+      <text x="538" y="30" class="lbl">L2</text></g><g><circle cx="630" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="104" class="n">0</text>
+      <text x="630" y="30" class="lbl">L1</text></g><g><circle cx="722" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="104" class="n">0</text>
+      <text x="722" y="30" class="lbl">L0</text></g><g><circle cx="170" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="230" class="n">1</text>
+      <text x="170" y="298" class="lbl">Y0</text></g><g><circle cx="262" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="230" class="n">2</text>
+      <text x="262" y="298" class="lbl">Y1</text></g><g><circle cx="354" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="230" class="n">1</text>
+      <text x="354" y="298" class="lbl">Y2</text></g><g><circle cx="446" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="230" class="n">0</text>
+      <text x="446" y="298" class="lbl">Y3</text></g><g><circle cx="538" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="230" class="n">2</text>
+      <text x="538" y="298" class="lbl">Y4</text></g><g><circle cx="630" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="230" class="n">0</text>
+      <text x="630" y="298" class="lbl">Y5</text></g><g><circle cx="722" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="230" class="n">0</text>
+      <text x="722" y="298" class="lbl">Y6</text></g><path d="M211 211L221 218L211 225" class="chev"/><path d="M221 85L211 92L221 99" class="chev"/><path d="M303 211L313 218L303 225" class="chev"/><path d="M313 85L303 92L313 99" class="chev"/><path d="M395 211L405 218L395 225" class="chev"/><path d="M405 85L395 92L405 99" class="chev"/><path d="M487 211L497 218L487 225" class="chev"/><path d="M497 85L487 92L497 99" class="chev"/><path d="M579 211L589 218L579 225" class="chev"/><path d="M589 85L579 92L589 99" class="chev"/><path d="M671 211L681 218L671 225" class="chev"/><path d="M681 85L671 92L681 99" class="chev"/><path d="M769 211L779 218L769 225" class="chev"/><path d="M779 85L769 92L779 99" class="chev"/><path d="M126 94 C 106 132, 106 178, 126 204" class="wrap"/><path d="M117 196L126 206L133 194" class="chev"/></svg>
+  <p class="remind">Take one whole turn. Score = shells you add to <b>your ulo</b>. Path: Y0 &rarr; Y6 &rarr; your ulo &rarr; L0 &rarr; L6 &rarr; Y0 (Lola's ulo is never sown). Ask the facilitator to preview a house before you commit to it. Up to three attempts; reset the board between attempts.</p>
+  <div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 1</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 2</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 3</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div>
+</section>
+<section class="page">
+  <header class="ph"><div><div class="kicker">Isang Tira &middot; paper playtest</div><h2>Board S1 <span class="day">Saturday</span></h2></div>
+  <div class="par"><div class="par-n">13</div><div class="par-l">PAR<br><span>best possible score</span></div></div></header>
+  <div class="who"><span>Tester <i></i></span><span>Facilitator <i></i></span><span>Date <i></i></span></div>
+  <div class="modebox"><span class="cap">Group</span><span class="tick">&#9744; A &nbsp; &#9744; B</span><span class="cap">Preview mode</span><span class="tick">&#9744; first handful &nbsp; &#9744; whole sowing</span><span class="muted">A: first handful &middot; B: whole sowing</span></div>
+  <svg viewBox="0 0 900 312" class="board" role="img" aria-label="Sungka board S1">
+  <defs><pattern id="hatch-S1" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#e6e0d6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#8c8173" stroke-width="3"/></pattern></defs>
+  <rect x="6" y="46" width="888" height="218" rx="104" fill="#f6ecda" stroke="#3b2f22" stroke-width="3"/>
+  <ellipse cx="66" cy="155" rx="36" ry="84" fill="#ece3d2" stroke="#8c8173" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="66" y="150" class="ulo-s">Lola's</text><text x="66" y="168" class="ulo-s">ulo</text><text x="66" y="186" class="ulo-xs">never sown</text>
+  <ellipse cx="832" cy="155" rx="44" ry="92" fill="#fffdf8" stroke="#3b2f22" stroke-width="3"/>
+  <text x="832" y="150" class="ulo">YOUR</text><text x="832" y="172" class="ulo">ULO</text><g><circle cx="170" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="104" class="n">0</text>
+      <text x="170" y="30" class="lbl">L6</text></g><g><circle cx="262" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="104" class="n">7</text>
+      <text x="262" y="30" class="lbl">L5</text></g><g><circle cx="354" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="104" class="n">0</text>
+      <text x="354" y="30" class="lbl">L4</text></g><g><circle cx="446" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="104" class="n">3</text>
+      <text x="446" y="30" class="lbl">L3</text></g><g><circle cx="538" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="104" class="n">0</text>
+      <text x="538" y="30" class="lbl">L2</text></g><g><circle cx="630" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="104" class="n">0</text>
+      <text x="630" y="30" class="lbl">L1</text></g><g><circle cx="722" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="104" class="n">0</text>
+      <text x="722" y="30" class="lbl">L0</text></g><g><circle cx="170" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="230" class="n">1</text>
+      <text x="170" y="298" class="lbl">Y0</text></g><g><circle cx="262" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="230" class="n">1</text>
+      <text x="262" y="298" class="lbl">Y1</text></g><g><circle cx="354" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="230" class="n">1</text>
+      <text x="354" y="298" class="lbl">Y2</text></g><g><circle cx="446" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="230" class="n">1</text>
+      <text x="446" y="298" class="lbl">Y3</text></g><g><circle cx="538" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="230" class="n">2</text>
+      <text x="538" y="298" class="lbl">Y4</text></g><g><circle cx="630" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="230" class="n">1</text>
+      <text x="630" y="298" class="lbl">Y5</text></g><g><circle cx="722" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="230" class="n">1</text>
+      <text x="722" y="298" class="lbl">Y6</text></g><path d="M211 211L221 218L211 225" class="chev"/><path d="M221 85L211 92L221 99" class="chev"/><path d="M303 211L313 218L303 225" class="chev"/><path d="M313 85L303 92L313 99" class="chev"/><path d="M395 211L405 218L395 225" class="chev"/><path d="M405 85L395 92L405 99" class="chev"/><path d="M487 211L497 218L487 225" class="chev"/><path d="M497 85L487 92L497 99" class="chev"/><path d="M579 211L589 218L579 225" class="chev"/><path d="M589 85L579 92L589 99" class="chev"/><path d="M671 211L681 218L671 225" class="chev"/><path d="M681 85L671 92L681 99" class="chev"/><path d="M769 211L779 218L769 225" class="chev"/><path d="M779 85L769 92L779 99" class="chev"/><path d="M126 94 C 106 132, 106 178, 126 204" class="wrap"/><path d="M117 196L126 206L133 194" class="chev"/></svg>
+  <p class="remind">Take one whole turn. Score = shells you add to <b>your ulo</b>. Path: Y0 &rarr; Y6 &rarr; your ulo &rarr; L0 &rarr; L6 &rarr; Y0 (Lola's ulo is never sown). Ask the facilitator to preview a house before you commit to it. Up to three attempts; reset the board between attempts.</p>
+  <div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 1</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 2</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 3</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div>
+</section>
+<section class="page">
+  <header class="ph"><div><div class="kicker">Isang Tira &middot; paper playtest</div><h2>Board S2 <span class="day">Saturday</span></h2></div>
+  <div class="par"><div class="par-n">14</div><div class="par-l">PAR<br><span>best possible score</span></div></div></header>
+  <div class="who"><span>Tester <i></i></span><span>Facilitator <i></i></span><span>Date <i></i></span></div>
+  <div class="modebox"><span class="cap">Group</span><span class="tick">&#9744; A &nbsp; &#9744; B</span><span class="cap">Preview mode</span><span class="tick">&#9744; first handful &nbsp; &#9744; whole sowing</span><span class="muted">A: whole sowing &middot; B: first handful</span></div>
+  <svg viewBox="0 0 900 312" class="board" role="img" aria-label="Sungka board S2">
+  <defs><pattern id="hatch-S2" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#e6e0d6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#8c8173" stroke-width="3"/></pattern></defs>
+  <rect x="6" y="46" width="888" height="218" rx="104" fill="#f6ecda" stroke="#3b2f22" stroke-width="3"/>
+  <ellipse cx="66" cy="155" rx="36" ry="84" fill="#ece3d2" stroke="#8c8173" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="66" y="150" class="ulo-s">Lola's</text><text x="66" y="168" class="ulo-s">ulo</text><text x="66" y="186" class="ulo-xs">never sown</text>
+  <ellipse cx="832" cy="155" rx="44" ry="92" fill="#fffdf8" stroke="#3b2f22" stroke-width="3"/>
+  <text x="832" y="150" class="ulo">YOUR</text><text x="832" y="172" class="ulo">ULO</text><g><circle cx="170" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="104" class="n">0</text>
+      <text x="170" y="30" class="lbl">L6</text></g><g><circle cx="262" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="104" class="n">7</text>
+      <text x="262" y="30" class="lbl">L5</text></g><g><circle cx="354" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="104" class="n">0</text>
+      <text x="354" y="30" class="lbl">L4</text></g><g><circle cx="446" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="104" class="n">0</text>
+      <text x="446" y="30" class="lbl">L3</text></g><g><circle cx="538" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="104" class="n">0</text>
+      <text x="538" y="30" class="lbl">L2</text></g><g><circle cx="630" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="104" class="n">0</text>
+      <text x="630" y="30" class="lbl">L1</text></g><g><circle cx="722" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="104" class="n">8</text>
+      <text x="722" y="30" class="lbl">L0</text></g><g><circle cx="170" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="230" class="n">2</text>
+      <text x="170" y="298" class="lbl">Y0</text></g><g><circle cx="262" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="230" class="n">1</text>
+      <text x="262" y="298" class="lbl">Y1</text></g><g><circle cx="354" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="230" class="n">1</text>
+      <text x="354" y="298" class="lbl">Y2</text></g><g><circle cx="446" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="230" class="n">1</text>
+      <text x="446" y="298" class="lbl">Y3</text></g><g><circle cx="538" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="230" class="n">2</text>
+      <text x="538" y="298" class="lbl">Y4</text></g><g><circle cx="630" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="230" class="n">1</text>
+      <text x="630" y="298" class="lbl">Y5</text></g><g><circle cx="722" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="230" class="n">1</text>
+      <text x="722" y="298" class="lbl">Y6</text></g><path d="M211 211L221 218L211 225" class="chev"/><path d="M221 85L211 92L221 99" class="chev"/><path d="M303 211L313 218L303 225" class="chev"/><path d="M313 85L303 92L313 99" class="chev"/><path d="M395 211L405 218L395 225" class="chev"/><path d="M405 85L395 92L405 99" class="chev"/><path d="M487 211L497 218L487 225" class="chev"/><path d="M497 85L487 92L497 99" class="chev"/><path d="M579 211L589 218L579 225" class="chev"/><path d="M589 85L579 92L589 99" class="chev"/><path d="M671 211L681 218L671 225" class="chev"/><path d="M681 85L671 92L681 99" class="chev"/><path d="M769 211L779 218L769 225" class="chev"/><path d="M779 85L769 92L779 99" class="chev"/><path d="M126 94 C 106 132, 106 178, 126 204" class="wrap"/><path d="M117 196L126 206L133 194" class="chev"/></svg>
+  <p class="remind">Take one whole turn. Score = shells you add to <b>your ulo</b>. Path: Y0 &rarr; Y6 &rarr; your ulo &rarr; L0 &rarr; L6 &rarr; Y0 (Lola's ulo is never sown). Ask the facilitator to preview a house before you commit to it. Up to three attempts; reset the board between attempts.</p>
+  <div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 1</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 2</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 3</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div>
+</section>
+<section class="page">
+  <header class="ph"><div><div class="kicker">Isang Tira &middot; paper playtest</div><h2>Board S3 <span class="day">Saturday</span></h2></div>
+  <div class="par"><div class="par-n">13</div><div class="par-l">PAR<br><span>best possible score</span></div></div></header>
+  <div class="who"><span>Tester <i></i></span><span>Facilitator <i></i></span><span>Date <i></i></span></div>
+  <div class="modebox"><span class="cap">Group</span><span class="tick">&#9744; A &nbsp; &#9744; B</span><span class="cap">Preview mode</span><span class="tick">&#9744; first handful &nbsp; &#9744; whole sowing</span><span class="muted">A: first handful &middot; B: whole sowing</span></div>
+  <svg viewBox="0 0 900 312" class="board" role="img" aria-label="Sungka board S3">
+  <defs><pattern id="hatch-S3" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#e6e0d6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#8c8173" stroke-width="3"/></pattern></defs>
+  <rect x="6" y="46" width="888" height="218" rx="104" fill="#f6ecda" stroke="#3b2f22" stroke-width="3"/>
+  <ellipse cx="66" cy="155" rx="36" ry="84" fill="#ece3d2" stroke="#8c8173" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="66" y="150" class="ulo-s">Lola's</text><text x="66" y="168" class="ulo-s">ulo</text><text x="66" y="186" class="ulo-xs">never sown</text>
+  <ellipse cx="832" cy="155" rx="44" ry="92" fill="#fffdf8" stroke="#3b2f22" stroke-width="3"/>
+  <text x="832" y="150" class="ulo">YOUR</text><text x="832" y="172" class="ulo">ULO</text><g><circle cx="170" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="104" class="n">0</text>
+      <text x="170" y="30" class="lbl">L6</text></g><g><circle cx="262" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="104" class="n">8</text>
+      <text x="262" y="30" class="lbl">L5</text></g><g><circle cx="354" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="104" class="n">3</text>
+      <text x="354" y="30" class="lbl">L4</text></g><g><circle cx="446" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="104" class="n">0</text>
+      <text x="446" y="30" class="lbl">L3</text></g><g><circle cx="538" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="104" class="n">0</text>
+      <text x="538" y="30" class="lbl">L2</text></g><g><circle cx="630" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="104" class="n">0</text>
+      <text x="630" y="30" class="lbl">L1</text></g><g><circle cx="722" cy="92" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="104" class="n">0</text>
+      <text x="722" y="30" class="lbl">L0</text></g><g><circle cx="170" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="170" y="230" class="n">1</text>
+      <text x="170" y="298" class="lbl">Y0</text></g><g><circle cx="262" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="262" y="230" class="n">2</text>
+      <text x="262" y="298" class="lbl">Y1</text></g><g><circle cx="354" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="354" y="230" class="n">5</text>
+      <text x="354" y="298" class="lbl">Y2</text></g><g><circle cx="446" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="446" y="230" class="n">1</text>
+      <text x="446" y="298" class="lbl">Y3</text></g><g><circle cx="538" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="538" y="230" class="n">3</text>
+      <text x="538" y="298" class="lbl">Y4</text></g><g><circle cx="630" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="630" y="230" class="n">0</text>
+      <text x="630" y="298" class="lbl">Y5</text></g><g><circle cx="722" cy="218" r="34" fill="#fffdf8" stroke="#3b2f22" stroke-width="2.5"/><text x="722" y="230" class="n">0</text>
+      <text x="722" y="298" class="lbl">Y6</text></g><path d="M211 211L221 218L211 225" class="chev"/><path d="M221 85L211 92L221 99" class="chev"/><path d="M303 211L313 218L303 225" class="chev"/><path d="M313 85L303 92L313 99" class="chev"/><path d="M395 211L405 218L395 225" class="chev"/><path d="M405 85L395 92L405 99" class="chev"/><path d="M487 211L497 218L487 225" class="chev"/><path d="M497 85L487 92L497 99" class="chev"/><path d="M579 211L589 218L579 225" class="chev"/><path d="M589 85L579 92L589 99" class="chev"/><path d="M671 211L681 218L671 225" class="chev"/><path d="M681 85L671 92L681 99" class="chev"/><path d="M769 211L779 218L769 225" class="chev"/><path d="M779 85L769 92L779 99" class="chev"/><path d="M126 94 C 106 132, 106 178, 126 204" class="wrap"/><path d="M117 196L126 206L133 194" class="chev"/></svg>
+  <p class="remind">Take one whole turn. Score = shells you add to <b>your ulo</b>. Path: Y0 &rarr; Y6 &rarr; your ulo &rarr; L0 &rarr; L6 &rarr; Y0 (Lola's ulo is never sown). Ask the facilitator to preview a house before you commit to it. Up to three attempts; reset the board between attempts.</p>
+  <div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 1</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 2</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div><div class="attempt">
+  <div class="att-h"><span class="att-n">Attempt 3</span><span class="fill">Start time <i></i></span></div>
+  <div class="row"><span class="cap">Houses in the order you chose them</span><span class="seq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  <div class="row"><span class="cap">Score</span><span class="box"></span><span class="cap">Reached par?</span><span class="tick">&#9744; yes &nbsp; &#9744; no</span></div>
+  <div class="row"><span class="cap">How did you choose?</span><span class="tick">&#9744; worked it out &nbsp; &#9744; partly guessed &nbsp; &#9744; guessed</span></div>
+  <div class="row notes"><span class="cap">Notes</span><i></i></div>
+</div>
+</section>
+
+</body>
+</html>
