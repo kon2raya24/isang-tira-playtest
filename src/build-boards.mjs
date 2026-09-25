@@ -314,7 +314,7 @@ function publicCopy(html) {
   }
   return html;
 }
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const pub = process.argv.includes('--public');
   const file = pub ? '../boards.html' : '../private/boards-full.html';
   writeFileSync(new URL(file, import.meta.url), pub ? publicCopy(out) : out);
