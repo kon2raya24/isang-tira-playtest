@@ -135,8 +135,8 @@ Everything comes from `src/engine.mjs` (rules R1–R8, as tested in `test/engine
   - Burnt houses are hatched with an ✕.
 - **Size:**
   - The board fits a 360 px-wide viewport with no horizontal scroll.
-  - Your-row tap targets are at least 40 × 40 px.
-  - It scales up to a maximum width of 760 px.
+  - Your-row tap targets are at least 34 × 34 px at 360 px (WCAG 2.2 AA asks for 24 px; 40 px would not fit seven houses and both ulos at 360 px).
+  - The page is at most 760 px wide, and the board at most 620 px.
 
 ## Accessibility
 
