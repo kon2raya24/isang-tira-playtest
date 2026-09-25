@@ -141,3 +141,17 @@ test('resultsText matches the exact format', () => {
   assert.match(S.resultsText(start('B'), PARS), /\nW1 WS par 7 \| -\n/);
   assert.match(S.resultsText(start(), PARS), /\nM1 FH par 6 \| -\n[\s\S]*\npreferred: -\nwhy: -$/);
 });
+
+test('nextRun counts runs on this device and keeps the group across Start over', () => {
+  const first = S.nextRun(null, '', () => 0.7);
+  assert.deepEqual(first, { count: 1, group: 'B' });
+  assert.deepEqual(S.nextRun(first, '', () => 0.1), { count: 2, group: 'B' }, 'a restart keeps the group');
+  assert.deepEqual(S.nextRun(first, '?group=A', () => 0.9), { count: 2, group: 'A' }, '?group= still overrides');
+  assert.deepEqual(S.nextRun({ count: 'x', group: 'Q' }, '', () => 0.2), { count: 1, group: 'A' }, 'a corrupt record starts over');
+});
+
+test('resultsText marks a repeat run on the header line', () => {
+  const s = S.newSession({ tester: 'AB', group: 'A', device: 'phone', started: '2026-09-27 19:02', now: 0, run: 2 });
+  assert.match(S.resultsText(s, PARS), /^ISANG TIRA PLAYTEST v1\ntester: AB \| group: A \| started: 2026-09-27 19:02 \| device: phone \| run: 2\n/);
+  assert.match(S.resultsText(start(), PARS), /device: phone\nM1 /, 'first runs keep the original header');
+});

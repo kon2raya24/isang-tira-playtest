@@ -6,6 +6,7 @@ const Q = new URLSearchParams(location.search);
 const TEST = Q.get('test') === '1';
 const STORE_KEY = 'isangtira.playtest.v1';
 const MUTE_KEY = 'isangtira.playtest.mute';
+const RUNS_KEY = 'isangtira.playtest.runs';
 const BOARDS = Object.fromEntries(DATA.boards.map((b) => [b.code, b]));
 const PARS = Object.fromEntries(DATA.boards.map((b) => [b.code, b.par]));
 const TOP = [14, 13, 12, 11, 10, 9, 8]; // Lola's row on screen: L6..L0, left to right
@@ -14,7 +15,7 @@ const SHELL_SPOTS = [[50, 28], [32, 42], [68, 42], [40, 62], [60, 62], [24, 24],
 const TICK_LABEL = { worked: 'Worked it out', partly: 'Partly guessed', guessed: 'Guessed' };
 const OUTCOME_LESSON = {
   extra: 'Your last shell landed in your ulo, so you get an extra turn: isa pa!',
-  capture: 'Your last shell landed in your own empty house, so you capture the Lola house opposite, plus that shell.',
+  capture: 'Your last shell landed in your own empty house, so you capture the Lola house opposite, plus that shell, and the turn ends.',
   dud: 'Your last shell landed in your own empty house with nothing opposite: a dud, and the turn ends.',
   end: 'Your last shell landed in an empty Lola house, so the turn ends.',
 };
@@ -129,12 +130,29 @@ function fxEl(ctx, cls, html, at) {
   return el;
 }
 
+// lift > 0 arcs up, lift < 0 arcs down, 0 moves straight.
 async function move(el, from, to, ms, lift = 18) {
-  const mid = [(from[0] + to[0]) / 2, Math.min(from[1], to[1]) - lift];
-  const a = el.animate([from, mid, to].map(([x, y]) => ({ transform: `translate(${x}px, ${y}px)` })), { duration: ms, easing: 'ease-in-out' });
+  const mid = [(from[0] + to[0]) / 2, lift >= 0 ? Math.min(from[1], to[1]) - lift : Math.max(from[1], to[1]) - lift];
+  const points = lift === 0 ? [from, to] : [from, mid, to];
+  const a = el.animate(points.map(([x, y]) => ({ transform: `translate(${x}px, ${y}px)` })), { duration: ms, easing: 'ease-in-out' });
   el.style.transform = `translate(${to[0]}px, ${to[1]}px)`;
   await a.finished;
 }
+
+// The hand hovers in the channel between the rows, off the house's numeral: above your houses and
+// the ulo, below Lola's houses.
+const houseW = (ctx) => ctx.$b.querySelector('.h').getBoundingClientRect().width;
+function handAt(ctx, slot) {
+  const [x, y] = center(ctx, slot);
+  const w = houseW(ctx);
+  return [x, slot >= 8 && slot <= 14 ? y + 0.5 * w : y - 0.5 * w];
+}
+function newHand(ctx, cls, n, at) {
+  const el = fxEl(ctx, cls, `<span>${n}</span>`, at);
+  el.style.setProperty('--hand', `${Math.min(30, Math.round(0.6 * houseW(ctx)))}px`);
+  return el;
+}
+const rowOf = (slot) => (slot <= 6 ? 'you' : slot >= 8 && slot <= 14 ? 'lola' : 'ulo');
 
 function flash(ctx, slot, keyframes, ms) {
   const el = ctx.$b.querySelector(`[data-slot="${slot}"]`);
@@ -167,7 +185,7 @@ async function animate(ctx, events) {
     const e = events[k];
     if (ctx.freezeAt === k) { // test hook: hold this frame for a screenshot
       paint(ctx, []);
-      if (!hand && pos !== null) hand = fxEl(ctx, 'hand', `<span>${inHand}</span>`, center(ctx, pos));
+      if (!hand && pos !== null) hand = newHand(ctx, 'hand', inHand, handAt(ctx, pos));
       await new Promise(() => {});
     }
     if (fast) {
@@ -184,12 +202,15 @@ async function animate(ctx, events) {
         paint(ctx, []);
         pos = e.slot;
         inHand = e.n;
-        hand = fxEl(ctx, 'hand', `<span>${inHand}</span>`, center(ctx, pos));
-        await hand.animate([{ opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1 }], { duration: ms(e) }).finished;
+        const at = handAt(ctx, pos);
+        hand = newHand(ctx, 'hand', inHand, at);
+        const place = `translate(${at[0]}px, ${at[1]}px)`;
+        await hand.animate([{ opacity: 0, transform: `${place} scale(0.4)` }, { opacity: 1, transform: `${place} scale(1)` }], { duration: ms(e) }).finished;
         break;
       case 'drop': {
         drops++;
-        await move(hand, center(ctx, pos), center(ctx, e.slot), ms(e));
+        const rows = rowOf(pos) + rowOf(e.slot);
+        await move(hand, handAt(ctx, pos), handAt(ctx, e.slot), ms(e), rows === 'youyou' ? 10 : rows === 'lolalola' ? -10 : 0);
         pos = e.slot;
         inHand--;
         hand.firstChild.textContent = String(inHand);
@@ -208,8 +229,12 @@ async function animate(ctx, events) {
         break;
       case 'extra': {
         dropHand();
-        const st = fxEl(ctx, 'stamp', 'ISA PA!', center(ctx, ULO));
-        await st.animate([{ opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1.12, offset: 0.35 }, { opacity: 1, scale: 1, offset: 0.75 }, { opacity: 0, scale: 1 }], { duration: ms(e) }).finished;
+        const [ux, uc] = center(ctx, ULO);
+        const uy = uc - 0.3 * ctx.$b.querySelector('.ulo').getBoundingClientRect().height; // above the ulo total
+        const st = fxEl(ctx, 'stamp', 'ISA PA!', [ux, uy]);
+        const pose = (k) => `translate(${ux}px, ${uy}px) rotate(-8deg) scale(${k})`;
+        st.style.transform = pose(1);
+        await st.animate([{ opacity: 0, transform: pose(0.4) }, { opacity: 1, transform: pose(1.12), offset: 0.35 }, { opacity: 1, transform: pose(1), offset: 0.75 }, { opacity: 0, transform: pose(1) }], { duration: ms(e) }).finished;
         st.remove();
         break;
       }
@@ -219,7 +244,7 @@ async function animate(ctx, events) {
         const from = e.t === 'capture' ? e.opp : 3;
         const taken = e.t === 'capture' ? [e.opp, e.slot] : BOTTOM;
         taken.forEach((i) => ctx.$b.querySelector(`[data-slot="${i}"]`).classList.add('taken'));
-        const chip = fxEl(ctx, 'hand take', `<span>${e.n}</span>`, center(ctx, from));
+        const chip = newHand(ctx, 'hand take', e.n, center(ctx, from));
         await move(chip, center(ctx, from), center(ctx, ULO), ms(e), 30);
         chip.remove();
         ctx.$b.querySelectorAll('.taken').forEach((el) => el.classList.remove('taken'));
@@ -284,6 +309,10 @@ function enterBoard() {
   coach();
   if (session.phase === 'play') focusLegal();
   else focusPanel();
+  const tries = currentBoard(session).tries.length;
+  announce(`Board ${code}, ${b.day}. Par ${b.par}. Preview: ${ui.mode === 'FH' ? 'first handful only' : 'whole sowing'}. ${isGuided()
+    ? `Guided board: tap ${slotName(ui.guide[0])} to preview it, then tap it again to sow.`
+    : `Try ${Math.min(tries + (session.phase === 'play' ? 1 : 0), MAX_TRIES)} of ${MAX_TRIES}.${tries && session.phase === 'play' ? ' The board is reset.' : ''}`}`);
 }
 
 function refresh() {
@@ -302,7 +331,7 @@ function panelHtml() {
     case 'play':
       return `<button type="button" class="primary" data-act="sow"${ui.selected === null || ui.busy ? ' disabled' : ''}>${ui.selected === null ? 'Sow' : `Sow ${slotName(ui.selected)}`}</button>`;
     case 'tick':
-      return `${res}<p class="q">How did you choose your moves this try?</p><div class="ticks">${TICKS.map((t) => `<button type="button" data-act="tick" data-tick="${t}">${TICK_LABEL[t]}</button>`).join('')}</div>`;
+      return `${res}<p class="q" id="tickq">How did you choose your moves this try?</p><div class="ticks" role="group" aria-labelledby="tickq" tabindex="-1">${TICKS.map((t) => `<button type="button" data-act="tick" data-tick="${t}">${TICK_LABEL[t]}</button>`).join('')}</div>`;
     case 'retry':
       return `${res}<button type="button" class="primary" data-act="retry">Try again (${MAX_TRIES - b.tries.length} left)</button>`;
     case 'done':
@@ -327,7 +356,7 @@ function focusLegal() {
   const h = legalNow()[0];
   if (h !== undefined) ui.$b.querySelector(`[data-slot="${h}"]`).focus({ preventScroll: true });
 }
-const focusPanel = () => $('#panel button')?.focus({ preventScroll: true });
+const focusPanel = () => ($('#panel .ticks') || $('#panel button'))?.focus({ preventScroll: true });
 
 function select(h) {
   if (!ui || ui.busy || !session || session.phase !== 'play') return undefined;
@@ -427,7 +456,7 @@ function startScreen() {
     <li>Pick a house in <b>your row</b> (bottom). Its shells are sown one per slot: along your row, into <b>your ulo</b>, then along Lola's row. Lola's ulo is skipped.</li>
     <li>Last shell in <b>your ulo</b>: extra turn. Choose again.</li>
     <li>Last shell in a house that <b>has shells</b>: pick them all up and keep sowing (a relay).</li>
-    <li>Last shell in <b>your own empty house</b>: capture Lola's house opposite, plus that shell. Nothing opposite? A dud.</li>
+    <li>Last shell in <b>your own empty house</b>: capture Lola's house opposite, plus that shell. Nothing opposite? A dud. Either way, the turn ends.</li>
     <li>Last shell in an <b>empty Lola house</b>: the turn ends.</li>
   </ol>
   <figure class="demo"><div aria-hidden="true">${boardHtml('demo')}</div><figcaption id="demo-cap"></figcaption></figure>
@@ -458,9 +487,14 @@ async function runDemo() {
 
 function startSession() {
   sound.ensure();
+  let prev = null;
+  try { prev = JSON.parse(store.get(RUNS_KEY) || 'null'); } catch { prev = null; }
+  const run = nextRun(prev, location.search, Math.random);
+  store.set(RUNS_KEY, JSON.stringify(run));
   session = newSession({
     tester: $('#initials')?.value ?? '',
-    group: groupFor(location.search, Math.random),
+    group: run.group,
+    run: run.count,
     device: matchMedia('(pointer: coarse)').matches ? 'phone' : 'desktop',
     started: TEST ? 'TEST' : formatLocal(new Date()),
     now: Date.now(),
@@ -470,11 +504,14 @@ function startSession() {
 }
 
 function confirmRestart(btn) {
-  if (btn.dataset.armed !== '1') {
-    btn.dataset.armed = '1';
+  const now = Date.now();
+  const armedAt = Number(btn.dataset.armedAt || 0);
+  if (!armedAt || now - armedAt > 5000) {
+    btn.dataset.armedAt = String(now);
     btn.textContent = 'Tap again to erase your progress';
     return;
   }
+  if (now - armedAt < 600) return; // a double-click is not a confirmation
   store.del(STORE_KEY);
   session = null;
   startScreen();
@@ -491,7 +528,7 @@ function resultsScreen() {
     return `<tr><th scope="row">${b.code}</th><td>${MODE_NAME[modeFor(session.group, b.code)]}</td><td>${PARS[b.code]}</td>${cells}</tr>`;
   }).join('');
   $app.innerHTML = `
-  <header class="top"><div><div class="kicker">All ten boards done</div><h1>Your results</h1></div></header>
+  <header class="top"><div><div class="kicker">All ten boards done</div><h1 tabindex="-1">Your results</h1></div></header>
   <div class="scroll"><table class="res"><thead><tr><th scope="col">Board</th><th scope="col">Preview</th><th scope="col">Par</th><th scope="col">Scores</th><th scope="col">Par?</th><th scope="col">How you chose</th></tr></thead><tbody>${rows}</tbody></table></div>
   <fieldset class="pref"><legend>Which preview felt more fun?</legend>
     ${PREFS.map((p) => `<label><input type="radio" name="pref" value="${p}"${session.preferred === p ? ' checked' : ''}> ${p[0].toUpperCase()}${p.slice(1)}</label>`).join('')}
@@ -500,6 +537,7 @@ function resultsScreen() {
   <div class="panel"><button type="button" class="primary" data-act="copy">Copy my results</button>${navigator.share ? '<button type="button" data-act="share">Share…</button>' : ''}<span id="copied" role="status"></span></div>
   <pre id="results-text" class="results-text">${esc(resultsText(session, PARS))}</pre>
   <div class="panel"><button type="button" data-act="replay" data-code="M1">Watch the perfect lines</button><button type="button" class="ghost" data-act="restart">Start over</button></div>`;
+  $('h1').focus({ preventScroll: true });
 }
 
 function updatePreference() {
@@ -535,7 +573,7 @@ function replayScreen(code) {
   demoRun++;
   const b = BOARDS[code];
   $app.innerHTML = `
-  <header class="top"><div><div class="kicker">Perfect lines</div><h1>Board ${code}</h1></div><div class="par" role="img" aria-label="Par ${b.par}"><b>${b.par}</b><span>par</span></div></header>
+  <header class="top"><div><div class="kicker">Perfect lines</div><h1 tabindex="-1">Board ${code}</h1></div><div class="par" role="img" aria-label="Par ${b.par}"><b>${b.par}</b><span>par</span></div></header>
   <div class="chips">${ORDER.map((c) => `<button type="button" class="chip${c === code ? ' on' : ''}" data-act="replay" data-code="${c}" aria-pressed="${c === code}">${c}</button>`).join('')}</div>
   <p>Perfect line: <b>${b.lines[0].map((h) => slotName(h)).join(' → ')}</b>${b.perfectLines > 1 ? ` (1 of ${b.perfectLines} perfect lines)` : ''}</p>
   ${boardHtml('b')}
@@ -543,6 +581,7 @@ function replayScreen(code) {
   <div class="panel"><button type="button" class="primary" data-act="replay-play" data-code="${code}">Play it</button><button type="button" class="ghost" data-act="results">Back to results</button></div>`;
   const { s, burnt } = toState(b.board);
   paint({ $b: $('#b'), s, burnt }, []);
+  $('h1').focus({ preventScroll: true });
 }
 
 async function playReplay(code) {
@@ -555,13 +594,13 @@ async function playReplay(code) {
     if (run !== demoRun || !ctx.$b.isConnected) return;
     const $h = ctx.$b.querySelector(`[data-slot="${h}"]`);
     $h.classList.add('sel');
-    caption(`${slotName(h)}…`);
+    say(`${slotName(h)}…`);
     await wait(reduced() ? 0 : 500);
     $h.classList.remove('sel');
     if (!(await animate(ctx, sowEvents(ctx.s, burnt, h).events))) return;
   }
   await animate(ctx, turnEndEvents(ctx.s, burnt).events);
-  caption(`Banked ${ctx.s[ULO]}: par.`);
+  say(`Banked ${ctx.s[ULO]}: par.`);
 }
 
 // ---------- input ----------
@@ -597,8 +636,10 @@ document.addEventListener('pointerdown', () => { if (activeCtx) activeCtx.speed 
 
 document.addEventListener('keydown', (ev) => {
   if (ev.target.closest?.('input, textarea')) return;
+  if (ev.repeat && (ev.key === 'Enter' || ev.key === ' ')) { ev.preventDefault(); return; } // a held key never chooses
   if (activeCtx && (ev.key === ' ' || ev.key === 'Enter')) activeCtx.speed = 4;
-  if (!ui || !ui.$b || !ui.$b.isConnected) return;
+  if (ev.ctrlKey || ev.metaKey || ev.altKey) return; // leave browser shortcuts alone
+  if (!ui || !ui.$b || !ui.$b.isConnected || !session || session.phase !== 'play' || ui.busy) return;
   if (/^[1-7]$/.test(ev.key)) {
     ev.preventDefault();
     const h = Number(ev.key) - 1;

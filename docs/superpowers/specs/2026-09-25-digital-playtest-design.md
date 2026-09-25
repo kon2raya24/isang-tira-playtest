@@ -157,7 +157,8 @@ Everything comes from `src/engine.mjs` (rules R1–R8, as tested in `test/engine
 - **Reloads:**
   - A reload resumes at the current board.
   - A try interrupted mid-turn restarts that try. The tries already recorded are kept.
-- **Restart:** a "Start over" link on the start and results screens, with a confirmation, clears the session.
+- **Restart:** a "Start over" link on the start and results screens, with a confirmation, clears the session. A double-click does not confirm: the second tap must come at least 0.6 s after the first.
+- **Runs:** `isangtira.playtest.runs` (kept by Start over) holds `{count, group}`. A new run keeps the stored group unless `?group=` overrides, so boards already seen never switch preview mode, and a repeat run is marked in the results header.
 
 ## Results text (exact format)
 
@@ -174,6 +175,7 @@ why: <text, newlines collapsed>
 
 - **Fields per try:** `n: <houses> = <score> [PAR] <worked|partly|guessed> <k>pv <s>s`.
 - **Timing:** seconds run from the try's start to its last sowing.
+- **Repeat runs:** when this device has run the playtest before, the header line ends with ` | run: N` (N ≥ 2).
 - **Device:** `phone` when `matchMedia('(pointer: coarse)')` matches, otherwise `desktop`.
 - **Time:** the viewer's local time.
 

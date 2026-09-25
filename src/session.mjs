@@ -19,18 +19,29 @@ export function groupFor(search, rand) {
   return rand() < 0.5 ? 'A' : 'B';
 }
 
+// Runs on this device: Start over keeps the group (so boards already seen never switch preview
+// mode) and counts the run, which resultsText reports when it is a repeat. prev is the stored
+// record or null; ?group= still overrides.
+export function nextRun(prev, search, rand) {
+  const ok = prev && Number.isInteger(prev.count) && prev.count > 0 && (prev.group === 'A' || prev.group === 'B');
+  const forced = new URLSearchParams(search).get('group');
+  const group = forced === 'A' || forced === 'B' ? forced : ok ? prev.group : groupFor('', rand);
+  return { count: ok ? prev.count + 1 : 1, group };
+}
+
 export function formatLocal(d) {
   const p = (n) => String(n).padStart(2, '0');
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
 }
 
-export function newSession({ tester = '', group, device, started, now }) {
+export function newSession({ tester = '', group, device, started, now, run = 1 }) {
   return {
     v: SESSION_VERSION,
     tester: String(tester).trim().slice(0, 12),
     group,
     device,
     started,
+    run,
     index: 0,
     phase: 'play',
     boards: ORDER.map((code) => ({ code, guided: code === 'M1', tries: [] })),
@@ -144,7 +155,7 @@ export function deserialize(text) {
 export function resultsText(s, pars) {
   const lines = [
     'ISANG TIRA PLAYTEST v1',
-    `tester: ${s.tester || '-'} | group: ${s.group} | started: ${s.started} | device: ${s.device}`,
+    `tester: ${s.tester || '-'} | group: ${s.group} | started: ${s.started} | device: ${s.device}${s.run > 1 ? ` | run: ${s.run}` : ''}`,
   ];
   for (const b of s.boards) {
     const head = `${b.code} ${modeFor(s.group, b.code)} par ${pars[b.code]}`;

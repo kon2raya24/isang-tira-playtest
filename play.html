@@ -8,13 +8,13 @@
 <style>
 :root {
   --ink: #231c14; --muted: #6b5e4f; --line: #3b2f22; --paper: #fffdf8; --ground: #efe9df; --wood: #f6ecda;
-  --fh: #2f5d8a; --ws: #8a4b2f; --ok: #2e7d4f; --no: #a33b2b; --shell: #fbf6ea; --shell-edge: #b7a78f;
+  --fh: #2f5d8a; --ws: #8a4b2f; --ok: #28703f; --no: #a33b2b; --shell: #fbf6ea; --shell-edge: #b7a78f;
   color-scheme: light;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
 body { background: var(--ground); color: var(--ink); font: 16px/1.45 "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
-.app { max-width: 760px; margin: 0 auto; padding: 14px 8px 40px; }
+.app { max-width: 760px; margin: 0 auto; padding: 14px 8px 40px; overflow-x: clip; }
 @media (min-width: 480px) { .app { padding-inline: 16px; } }
 h1 { font: 700 clamp(24px, 6vw, 32px)/1.1 Georgia, "Palatino Linotype", serif; margin: 2px 0 0; }
 .kicker { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
@@ -42,7 +42,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px
 .result.yes { color: var(--ok); }
 .result.no { color: var(--no); }
 .q { margin: 0; flex-basis: 100%; }
-.ticks { display: flex; flex-wrap: wrap; gap: 8px; flex-basis: 100%; }
+.ticks { display: flex; flex-wrap: wrap; gap: 8px; flex-basis: 100%; border-radius: 10px; }
+.ticks:focus { outline: 3px dashed var(--fh); outline-offset: 4px; }
+h1[tabindex="-1"]:focus { outline: none; }
 .coach { background: var(--paper); border: 2px solid var(--fh); border-radius: 10px; padding: 10px 12px; margin: 0 0 12px; }
 .lede { margin: 0 0 10px; }
 .rules { margin: 0 0 12px; padding-left: 22px; }
@@ -75,12 +77,12 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px
 .ulo .num { font: 700 clamp(15px, 4.4vw, 24px)/1 system-ui, sans-serif; }
 .fx { position: absolute; inset: 0; pointer-events: none; }
 .fx > * { position: absolute; left: 0; top: 0; }
-.hand { translate: -50% -50%; width: 30px; height: 30px; border-radius: 50%; background: var(--shell); border: 2px solid var(--line); box-shadow: 0 4px 8px rgba(35, 28, 20, .3); display: grid; place-items: center; font: 700 14px/1 system-ui, sans-serif; z-index: 3; }
+.hand { translate: -50% -50%; width: var(--hand, 30px); height: var(--hand, 30px); border-radius: 50%; background: var(--shell); border: 2px solid var(--line); box-shadow: 0 4px 8px rgba(35, 28, 20, .3); display: grid; place-items: center; font: 700 calc(var(--hand, 30px) * .47)/1 system-ui, sans-serif; z-index: 3; }
 .hand.take { background: #f3e2b8; }
 .ring { translate: -50% -50%; width: var(--d, 40px); height: var(--d, 40px); border: 3px dashed var(--fh); border-radius: 50%; display: grid; place-items: center; z-index: 2; }
 .ring.ws { border-color: var(--ws); }
 .ring b { translate: 0 -150%; background: var(--ws); color: #fff; font-size: 11px; min-width: 18px; border-radius: 9px; padding: 1px 4px; text-align: center; }
-.stamp { translate: -50% -50%; background: var(--ws); color: #fff; font: 800 18px/1 Georgia, serif; padding: 6px 10px; border-radius: 8px; rotate: -8deg; white-space: nowrap; z-index: 4; }
+.stamp { translate: -88% -50%; background: var(--ws); color: #fff; font: 800 18px/1 Georgia, serif; padding: 6px 10px; border-radius: 8px; white-space: nowrap; z-index: 4; }
 .spark { translate: -50% -50%; width: 9px; height: 6px; border-radius: 50%; background: var(--shell); border: 1px solid var(--shell-edge); }
 
 /* ---------- results and replay ---------- */
@@ -443,7 +445,7 @@ const DEMOS = [
   { house: 5, Y: [0, 0, 0, 0, 0, 2, 0], L: [0, 0, 0, 0, 0, 0, 0], outcome: 'extra', relays: 0,
     caption: 'Y5 has 2 shells: one into Y6, the last into your ulo. Extra turn.' },
   { house: 2, Y: [0, 0, 2, 0, 1, 0, 0], L: [2, 0, 0, 0, 0, 0, 0], outcome: 'capture', relays: 1,
-    caption: 'Y2\'s last shell lands in Y4, which has a shell: pick both up and keep sowing (relay). It ends in your empty Y6, so you capture Lola\'s 2 opposite, plus that shell.' },
+    caption: 'Y2\'s last shell lands in Y4, which has a shell: pick both up and keep sowing (relay). It ends in your empty Y6, so you capture Lola\'s 2 opposite, plus that shell, and the turn ends.' },
   { house: 6, Y: [0, 0, 0, 0, 0, 0, 3], L: [0, 0, 0, 0, 0, 0, 0], outcome: 'end', relays: 0,
     caption: 'Y6\'s 3 shells: one into your ulo on the way, then into Lola\'s row. The last lands in her empty L1: the turn ends.' },
   { house: 4, Y: [0, 0, 0, 0, 1, 0, 0], L: [0, 0, 0, 0, 0, 0, 0], outcome: 'dud', relays: 0,
@@ -470,18 +472,29 @@ function groupFor(search, rand) {
   return rand() < 0.5 ? 'A' : 'B';
 }
 
+// Runs on this device: Start over keeps the group (so boards already seen never switch preview
+// mode) and counts the run, which resultsText reports when it is a repeat. prev is the stored
+// record or null; ?group= still overrides.
+function nextRun(prev, search, rand) {
+  const ok = prev && Number.isInteger(prev.count) && prev.count > 0 && (prev.group === 'A' || prev.group === 'B');
+  const forced = new URLSearchParams(search).get('group');
+  const group = forced === 'A' || forced === 'B' ? forced : ok ? prev.group : groupFor('', rand);
+  return { count: ok ? prev.count + 1 : 1, group };
+}
+
 function formatLocal(d) {
   const p = (n) => String(n).padStart(2, '0');
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
 }
 
-function newSession({ tester = '', group, device, started, now }) {
+function newSession({ tester = '', group, device, started, now, run = 1 }) {
   return {
     v: SESSION_VERSION,
     tester: String(tester).trim().slice(0, 12),
     group,
     device,
     started,
+    run,
     index: 0,
     phase: 'play',
     boards: ORDER.map((code) => ({ code, guided: code === 'M1', tries: [] })),
@@ -595,7 +608,7 @@ function deserialize(text) {
 function resultsText(s, pars) {
   const lines = [
     'ISANG TIRA PLAYTEST v1',
-    `tester: ${s.tester || '-'} | group: ${s.group} | started: ${s.started} | device: ${s.device}`,
+    `tester: ${s.tester || '-'} | group: ${s.group} | started: ${s.started} | device: ${s.device}${s.run > 1 ? ` | run: ${s.run}` : ''}`,
   ];
   for (const b of s.boards) {
     const head = `${b.code} ${modeFor(s.group, b.code)} par ${pars[b.code]}`;
@@ -619,6 +632,7 @@ const Q = new URLSearchParams(location.search);
 const TEST = Q.get('test') === '1';
 const STORE_KEY = 'isangtira.playtest.v1';
 const MUTE_KEY = 'isangtira.playtest.mute';
+const RUNS_KEY = 'isangtira.playtest.runs';
 const BOARDS = Object.fromEntries(DATA.boards.map((b) => [b.code, b]));
 const PARS = Object.fromEntries(DATA.boards.map((b) => [b.code, b.par]));
 const TOP = [14, 13, 12, 11, 10, 9, 8]; // Lola's row on screen: L6..L0, left to right
@@ -627,7 +641,7 @@ const SHELL_SPOTS = [[50, 28], [32, 42], [68, 42], [40, 62], [60, 62], [24, 24],
 const TICK_LABEL = { worked: 'Worked it out', partly: 'Partly guessed', guessed: 'Guessed' };
 const OUTCOME_LESSON = {
   extra: 'Your last shell landed in your ulo, so you get an extra turn: isa pa!',
-  capture: 'Your last shell landed in your own empty house, so you capture the Lola house opposite, plus that shell.',
+  capture: 'Your last shell landed in your own empty house, so you capture the Lola house opposite, plus that shell, and the turn ends.',
   dud: 'Your last shell landed in your own empty house with nothing opposite: a dud, and the turn ends.',
   end: 'Your last shell landed in an empty Lola house, so the turn ends.',
 };
@@ -742,12 +756,29 @@ function fxEl(ctx, cls, html, at) {
   return el;
 }
 
+// lift > 0 arcs up, lift < 0 arcs down, 0 moves straight.
 async function move(el, from, to, ms, lift = 18) {
-  const mid = [(from[0] + to[0]) / 2, Math.min(from[1], to[1]) - lift];
-  const a = el.animate([from, mid, to].map(([x, y]) => ({ transform: `translate(${x}px, ${y}px)` })), { duration: ms, easing: 'ease-in-out' });
+  const mid = [(from[0] + to[0]) / 2, lift >= 0 ? Math.min(from[1], to[1]) - lift : Math.max(from[1], to[1]) - lift];
+  const points = lift === 0 ? [from, to] : [from, mid, to];
+  const a = el.animate(points.map(([x, y]) => ({ transform: `translate(${x}px, ${y}px)` })), { duration: ms, easing: 'ease-in-out' });
   el.style.transform = `translate(${to[0]}px, ${to[1]}px)`;
   await a.finished;
 }
+
+// The hand hovers in the channel between the rows, off the house's numeral: above your houses and
+// the ulo, below Lola's houses.
+const houseW = (ctx) => ctx.$b.querySelector('.h').getBoundingClientRect().width;
+function handAt(ctx, slot) {
+  const [x, y] = center(ctx, slot);
+  const w = houseW(ctx);
+  return [x, slot >= 8 && slot <= 14 ? y + 0.5 * w : y - 0.5 * w];
+}
+function newHand(ctx, cls, n, at) {
+  const el = fxEl(ctx, cls, `<span>${n}</span>`, at);
+  el.style.setProperty('--hand', `${Math.min(30, Math.round(0.6 * houseW(ctx)))}px`);
+  return el;
+}
+const rowOf = (slot) => (slot <= 6 ? 'you' : slot >= 8 && slot <= 14 ? 'lola' : 'ulo');
 
 function flash(ctx, slot, keyframes, ms) {
   const el = ctx.$b.querySelector(`[data-slot="${slot}"]`);
@@ -780,7 +811,7 @@ async function animate(ctx, events) {
     const e = events[k];
     if (ctx.freezeAt === k) { // test hook: hold this frame for a screenshot
       paint(ctx, []);
-      if (!hand && pos !== null) hand = fxEl(ctx, 'hand', `<span>${inHand}</span>`, center(ctx, pos));
+      if (!hand && pos !== null) hand = newHand(ctx, 'hand', inHand, handAt(ctx, pos));
       await new Promise(() => {});
     }
     if (fast) {
@@ -797,12 +828,15 @@ async function animate(ctx, events) {
         paint(ctx, []);
         pos = e.slot;
         inHand = e.n;
-        hand = fxEl(ctx, 'hand', `<span>${inHand}</span>`, center(ctx, pos));
-        await hand.animate([{ opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1 }], { duration: ms(e) }).finished;
+        const at = handAt(ctx, pos);
+        hand = newHand(ctx, 'hand', inHand, at);
+        const place = `translate(${at[0]}px, ${at[1]}px)`;
+        await hand.animate([{ opacity: 0, transform: `${place} scale(0.4)` }, { opacity: 1, transform: `${place} scale(1)` }], { duration: ms(e) }).finished;
         break;
       case 'drop': {
         drops++;
-        await move(hand, center(ctx, pos), center(ctx, e.slot), ms(e));
+        const rows = rowOf(pos) + rowOf(e.slot);
+        await move(hand, handAt(ctx, pos), handAt(ctx, e.slot), ms(e), rows === 'youyou' ? 10 : rows === 'lolalola' ? -10 : 0);
         pos = e.slot;
         inHand--;
         hand.firstChild.textContent = String(inHand);
@@ -821,8 +855,12 @@ async function animate(ctx, events) {
         break;
       case 'extra': {
         dropHand();
-        const st = fxEl(ctx, 'stamp', 'ISA PA!', center(ctx, ULO));
-        await st.animate([{ opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1.12, offset: 0.35 }, { opacity: 1, scale: 1, offset: 0.75 }, { opacity: 0, scale: 1 }], { duration: ms(e) }).finished;
+        const [ux, uc] = center(ctx, ULO);
+        const uy = uc - 0.3 * ctx.$b.querySelector('.ulo').getBoundingClientRect().height; // above the ulo total
+        const st = fxEl(ctx, 'stamp', 'ISA PA!', [ux, uy]);
+        const pose = (k) => `translate(${ux}px, ${uy}px) rotate(-8deg) scale(${k})`;
+        st.style.transform = pose(1);
+        await st.animate([{ opacity: 0, transform: pose(0.4) }, { opacity: 1, transform: pose(1.12), offset: 0.35 }, { opacity: 1, transform: pose(1), offset: 0.75 }, { opacity: 0, transform: pose(1) }], { duration: ms(e) }).finished;
         st.remove();
         break;
       }
@@ -832,7 +870,7 @@ async function animate(ctx, events) {
         const from = e.t === 'capture' ? e.opp : 3;
         const taken = e.t === 'capture' ? [e.opp, e.slot] : BOTTOM;
         taken.forEach((i) => ctx.$b.querySelector(`[data-slot="${i}"]`).classList.add('taken'));
-        const chip = fxEl(ctx, 'hand take', `<span>${e.n}</span>`, center(ctx, from));
+        const chip = newHand(ctx, 'hand take', e.n, center(ctx, from));
         await move(chip, center(ctx, from), center(ctx, ULO), ms(e), 30);
         chip.remove();
         ctx.$b.querySelectorAll('.taken').forEach((el) => el.classList.remove('taken'));
@@ -897,6 +935,10 @@ function enterBoard() {
   coach();
   if (session.phase === 'play') focusLegal();
   else focusPanel();
+  const tries = currentBoard(session).tries.length;
+  announce(`Board ${code}, ${b.day}. Par ${b.par}. Preview: ${ui.mode === 'FH' ? 'first handful only' : 'whole sowing'}. ${isGuided()
+    ? `Guided board: tap ${slotName(ui.guide[0])} to preview it, then tap it again to sow.`
+    : `Try ${Math.min(tries + (session.phase === 'play' ? 1 : 0), MAX_TRIES)} of ${MAX_TRIES}.${tries && session.phase === 'play' ? ' The board is reset.' : ''}`}`);
 }
 
 function refresh() {
@@ -915,7 +957,7 @@ function panelHtml() {
     case 'play':
       return `<button type="button" class="primary" data-act="sow"${ui.selected === null || ui.busy ? ' disabled' : ''}>${ui.selected === null ? 'Sow' : `Sow ${slotName(ui.selected)}`}</button>`;
     case 'tick':
-      return `${res}<p class="q">How did you choose your moves this try?</p><div class="ticks">${TICKS.map((t) => `<button type="button" data-act="tick" data-tick="${t}">${TICK_LABEL[t]}</button>`).join('')}</div>`;
+      return `${res}<p class="q" id="tickq">How did you choose your moves this try?</p><div class="ticks" role="group" aria-labelledby="tickq" tabindex="-1">${TICKS.map((t) => `<button type="button" data-act="tick" data-tick="${t}">${TICK_LABEL[t]}</button>`).join('')}</div>`;
     case 'retry':
       return `${res}<button type="button" class="primary" data-act="retry">Try again (${MAX_TRIES - b.tries.length} left)</button>`;
     case 'done':
@@ -940,7 +982,7 @@ function focusLegal() {
   const h = legalNow()[0];
   if (h !== undefined) ui.$b.querySelector(`[data-slot="${h}"]`).focus({ preventScroll: true });
 }
-const focusPanel = () => $('#panel button')?.focus({ preventScroll: true });
+const focusPanel = () => ($('#panel .ticks') || $('#panel button'))?.focus({ preventScroll: true });
 
 function select(h) {
   if (!ui || ui.busy || !session || session.phase !== 'play') return undefined;
@@ -1040,7 +1082,7 @@ function startScreen() {
     <li>Pick a house in <b>your row</b> (bottom). Its shells are sown one per slot: along your row, into <b>your ulo</b>, then along Lola's row. Lola's ulo is skipped.</li>
     <li>Last shell in <b>your ulo</b>: extra turn. Choose again.</li>
     <li>Last shell in a house that <b>has shells</b>: pick them all up and keep sowing (a relay).</li>
-    <li>Last shell in <b>your own empty house</b>: capture Lola's house opposite, plus that shell. Nothing opposite? A dud.</li>
+    <li>Last shell in <b>your own empty house</b>: capture Lola's house opposite, plus that shell. Nothing opposite? A dud. Either way, the turn ends.</li>
     <li>Last shell in an <b>empty Lola house</b>: the turn ends.</li>
   </ol>
   <figure class="demo"><div aria-hidden="true">${boardHtml('demo')}</div><figcaption id="demo-cap"></figcaption></figure>
@@ -1071,9 +1113,14 @@ async function runDemo() {
 
 function startSession() {
   sound.ensure();
+  let prev = null;
+  try { prev = JSON.parse(store.get(RUNS_KEY) || 'null'); } catch { prev = null; }
+  const run = nextRun(prev, location.search, Math.random);
+  store.set(RUNS_KEY, JSON.stringify(run));
   session = newSession({
     tester: $('#initials')?.value ?? '',
-    group: groupFor(location.search, Math.random),
+    group: run.group,
+    run: run.count,
     device: matchMedia('(pointer: coarse)').matches ? 'phone' : 'desktop',
     started: TEST ? 'TEST' : formatLocal(new Date()),
     now: Date.now(),
@@ -1083,11 +1130,14 @@ function startSession() {
 }
 
 function confirmRestart(btn) {
-  if (btn.dataset.armed !== '1') {
-    btn.dataset.armed = '1';
+  const now = Date.now();
+  const armedAt = Number(btn.dataset.armedAt || 0);
+  if (!armedAt || now - armedAt > 5000) {
+    btn.dataset.armedAt = String(now);
     btn.textContent = 'Tap again to erase your progress';
     return;
   }
+  if (now - armedAt < 600) return; // a double-click is not a confirmation
   store.del(STORE_KEY);
   session = null;
   startScreen();
@@ -1104,7 +1154,7 @@ function resultsScreen() {
     return `<tr><th scope="row">${b.code}</th><td>${MODE_NAME[modeFor(session.group, b.code)]}</td><td>${PARS[b.code]}</td>${cells}</tr>`;
   }).join('');
   $app.innerHTML = `
-  <header class="top"><div><div class="kicker">All ten boards done</div><h1>Your results</h1></div></header>
+  <header class="top"><div><div class="kicker">All ten boards done</div><h1 tabindex="-1">Your results</h1></div></header>
   <div class="scroll"><table class="res"><thead><tr><th scope="col">Board</th><th scope="col">Preview</th><th scope="col">Par</th><th scope="col">Scores</th><th scope="col">Par?</th><th scope="col">How you chose</th></tr></thead><tbody>${rows}</tbody></table></div>
   <fieldset class="pref"><legend>Which preview felt more fun?</legend>
     ${PREFS.map((p) => `<label><input type="radio" name="pref" value="${p}"${session.preferred === p ? ' checked' : ''}> ${p[0].toUpperCase()}${p.slice(1)}</label>`).join('')}
@@ -1113,6 +1163,7 @@ function resultsScreen() {
   <div class="panel"><button type="button" class="primary" data-act="copy">Copy my results</button>${navigator.share ? '<button type="button" data-act="share">Share…</button>' : ''}<span id="copied" role="status"></span></div>
   <pre id="results-text" class="results-text">${esc(resultsText(session, PARS))}</pre>
   <div class="panel"><button type="button" data-act="replay" data-code="M1">Watch the perfect lines</button><button type="button" class="ghost" data-act="restart">Start over</button></div>`;
+  $('h1').focus({ preventScroll: true });
 }
 
 function updatePreference() {
@@ -1148,7 +1199,7 @@ function replayScreen(code) {
   demoRun++;
   const b = BOARDS[code];
   $app.innerHTML = `
-  <header class="top"><div><div class="kicker">Perfect lines</div><h1>Board ${code}</h1></div><div class="par" role="img" aria-label="Par ${b.par}"><b>${b.par}</b><span>par</span></div></header>
+  <header class="top"><div><div class="kicker">Perfect lines</div><h1 tabindex="-1">Board ${code}</h1></div><div class="par" role="img" aria-label="Par ${b.par}"><b>${b.par}</b><span>par</span></div></header>
   <div class="chips">${ORDER.map((c) => `<button type="button" class="chip${c === code ? ' on' : ''}" data-act="replay" data-code="${c}" aria-pressed="${c === code}">${c}</button>`).join('')}</div>
   <p>Perfect line: <b>${b.lines[0].map((h) => slotName(h)).join(' → ')}</b>${b.perfectLines > 1 ? ` (1 of ${b.perfectLines} perfect lines)` : ''}</p>
   ${boardHtml('b')}
@@ -1156,6 +1207,7 @@ function replayScreen(code) {
   <div class="panel"><button type="button" class="primary" data-act="replay-play" data-code="${code}">Play it</button><button type="button" class="ghost" data-act="results">Back to results</button></div>`;
   const { s, burnt } = toState(b.board);
   paint({ $b: $('#b'), s, burnt }, []);
+  $('h1').focus({ preventScroll: true });
 }
 
 async function playReplay(code) {
@@ -1168,13 +1220,13 @@ async function playReplay(code) {
     if (run !== demoRun || !ctx.$b.isConnected) return;
     const $h = ctx.$b.querySelector(`[data-slot="${h}"]`);
     $h.classList.add('sel');
-    caption(`${slotName(h)}…`);
+    say(`${slotName(h)}…`);
     await wait(reduced() ? 0 : 500);
     $h.classList.remove('sel');
     if (!(await animate(ctx, sowEvents(ctx.s, burnt, h).events))) return;
   }
   await animate(ctx, turnEndEvents(ctx.s, burnt).events);
-  caption(`Banked ${ctx.s[ULO]}: par.`);
+  say(`Banked ${ctx.s[ULO]}: par.`);
 }
 
 // ---------- input ----------
@@ -1210,8 +1262,10 @@ document.addEventListener('pointerdown', () => { if (activeCtx) activeCtx.speed 
 
 document.addEventListener('keydown', (ev) => {
   if (ev.target.closest?.('input, textarea')) return;
+  if (ev.repeat && (ev.key === 'Enter' || ev.key === ' ')) { ev.preventDefault(); return; } // a held key never chooses
   if (activeCtx && (ev.key === ' ' || ev.key === 'Enter')) activeCtx.speed = 4;
-  if (!ui || !ui.$b || !ui.$b.isConnected) return;
+  if (ev.ctrlKey || ev.metaKey || ev.altKey) return; // leave browser shortcuts alone
+  if (!ui || !ui.$b || !ui.$b.isConnected || !session || session.phase !== 'play' || ui.busy) return;
   if (/^[1-7]$/.test(ev.key)) {
     ev.preventDefault();
     const h = Number(ev.key) - 1;
