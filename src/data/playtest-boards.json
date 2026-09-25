@@ -1,0 +1,2689 @@
+{
+ "rule": "see header of analysis/pick-boards.mjs",
+ "playtest": {
+  "Monday": {
+   "picks": [
+    {
+     "day": "Monday",
+     "seed": "spike-b",
+     "candidate": 1,
+     "board": {
+      "Y": [
+       0,
+       2,
+       0,
+       0,
+       2,
+       2,
+       0
+      ],
+      "L": [
+       3,
+       2,
+       1,
+       1,
+       0,
+       0,
+       0
+      ]
+     },
+     "par": 6,
+     "perfectLines": 1,
+     "sowingsInPar": [
+      3,
+      3
+     ],
+     "greedyScore": 6,
+     "greedyGap": 0,
+     "greedyMoves": [
+      "Y5",
+      "Y6",
+      "Y4"
+     ],
+     "greedyTrace": {
+      "steps": [
+       {
+        "house": "Y5",
+        "handfuls": [
+         {
+          "from": "Y5",
+          "size": 2,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y6",
+        "handfuls": [
+         {
+          "from": "Y6",
+          "size": 1,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y4",
+        "handfuls": [
+         {
+          "from": "Y4",
+          "size": 2,
+          "lands": "Y6",
+          "passUlo": 0,
+          "meaning": "capture",
+          "captured": 3,
+          "oppName": "L0"
+         }
+        ],
+        "gained": 4,
+        "outcome": "capture"
+       }
+      ],
+      "swept": 0,
+      "score": 6
+     },
+     "relayAwareScore": 6,
+     "randomParRate": "1/18",
+     "randomParRateFloat": 0.05555555555555555,
+     "positionsSearched": 3,
+     "easiest": {
+      "moves": [
+       "Y5",
+       "Y6",
+       "Y4"
+      ],
+      "outcomes": [
+       "extra",
+       "extra",
+       "capture"
+      ],
+      "maxHandful": 2,
+      "relaySegments": 0,
+      "totalDrops": 5,
+      "captures": 1,
+      "relayExtras": 0
+     },
+     "lines": [
+      {
+       "moves": [
+        "Y5",
+        "Y6",
+        "Y4"
+       ],
+       "steps": [
+        {
+         "house": "Y5",
+         "handfuls": [
+          {
+           "from": "Y5",
+           "size": 2,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y4",
+         "handfuls": [
+          {
+           "from": "Y4",
+           "size": 2,
+           "lands": "Y6",
+           "passUlo": 0,
+           "meaning": "capture",
+           "captured": 3,
+           "oppName": "L0"
+          }
+         ],
+         "gained": 4,
+         "outcome": "capture"
+        }
+       ],
+       "swept": 0,
+       "score": 6,
+       "relaySegments": 0,
+       "maxHandful": 2,
+       "totalDrops": 5,
+       "captures": 1
+      }
+     ],
+     "preview": {
+      "oneTryScore": 6,
+      "oneTryMoves": [
+       "Y5",
+       "Y6",
+       "Y4"
+      ],
+      "within3": 1
+     },
+     "opening": [
+      {
+       "house": "Y1",
+       "size": 2,
+       "lands": "Y3",
+       "meaning": "capture",
+       "passUlo": 0,
+       "captured": 1,
+       "oppName": "L3"
+      },
+      {
+       "house": "Y4",
+       "size": 2,
+       "lands": "Y6",
+       "meaning": "capture",
+       "passUlo": 0,
+       "captured": 3,
+       "oppName": "L0"
+      },
+      {
+       "house": "Y5",
+       "size": 2,
+       "lands": "ulo",
+       "meaning": "extra",
+       "passUlo": 1
+      }
+     ],
+     "typicality": 0.046
+    },
+    {
+     "day": "Monday",
+     "seed": "spike-b",
+     "candidate": 110,
+     "board": {
+      "Y": [
+       2,
+       0,
+       1,
+       0,
+       3,
+       0,
+       0
+      ],
+      "L": [
+       3,
+       0,
+       0,
+       3,
+       0,
+       0,
+       1
+      ]
+     },
+     "par": 6,
+     "perfectLines": 2,
+     "sowingsInPar": [
+      3,
+      3
+     ],
+     "greedyScore": 6,
+     "greedyGap": 0,
+     "greedyMoves": [
+      "Y4",
+      "Y6",
+      "Y5"
+     ],
+     "greedyTrace": {
+      "steps": [
+       {
+        "house": "Y4",
+        "handfuls": [
+         {
+          "from": "Y4",
+          "size": 3,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y6",
+        "handfuls": [
+         {
+          "from": "Y6",
+          "size": 1,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y5",
+        "handfuls": [
+         {
+          "from": "Y5",
+          "size": 1,
+          "lands": "Y6",
+          "passUlo": 0,
+          "meaning": "capture",
+          "captured": 3,
+          "oppName": "L0"
+         }
+        ],
+        "gained": 4,
+        "outcome": "capture"
+       }
+      ],
+      "swept": 0,
+      "score": 6
+     },
+     "relayAwareScore": 6,
+     "randomParRate": "1/18",
+     "randomParRateFloat": 0.05555555555555555,
+     "positionsSearched": 3,
+     "easiest": {
+      "moves": [
+       "Y4",
+       "Y6",
+       "Y2"
+      ],
+      "outcomes": [
+       "extra",
+       "extra",
+       "capture"
+      ],
+      "maxHandful": 3,
+      "relaySegments": 0,
+      "totalDrops": 5,
+      "captures": 1,
+      "relayExtras": 0
+     },
+     "lines": [
+      {
+       "moves": [
+        "Y4",
+        "Y6",
+        "Y2"
+       ],
+       "steps": [
+        {
+         "house": "Y4",
+         "handfuls": [
+          {
+           "from": "Y4",
+           "size": 3,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y2",
+         "handfuls": [
+          {
+           "from": "Y2",
+           "size": 1,
+           "lands": "Y3",
+           "passUlo": 0,
+           "meaning": "capture",
+           "captured": 3,
+           "oppName": "L3"
+          }
+         ],
+         "gained": 4,
+         "outcome": "capture"
+        }
+       ],
+       "swept": 0,
+       "score": 6,
+       "relaySegments": 0,
+       "maxHandful": 3,
+       "totalDrops": 5,
+       "captures": 1
+      },
+      {
+       "moves": [
+        "Y4",
+        "Y6",
+        "Y5"
+       ],
+       "steps": [
+        {
+         "house": "Y4",
+         "handfuls": [
+          {
+           "from": "Y4",
+           "size": 3,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y5",
+         "handfuls": [
+          {
+           "from": "Y5",
+           "size": 1,
+           "lands": "Y6",
+           "passUlo": 0,
+           "meaning": "capture",
+           "captured": 3,
+           "oppName": "L0"
+          }
+         ],
+         "gained": 4,
+         "outcome": "capture"
+        }
+       ],
+       "swept": 0,
+       "score": 6,
+       "relaySegments": 0,
+       "maxHandful": 3,
+       "totalDrops": 5,
+       "captures": 1
+      }
+     ],
+     "preview": {
+      "oneTryScore": 6,
+      "oneTryMoves": [
+       "Y4",
+       "Y6",
+       "Y5"
+      ],
+      "within3": 1
+     },
+     "opening": [
+      {
+       "house": "Y0",
+       "size": 2,
+       "lands": "Y2",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y2",
+       "size": 1,
+       "lands": "Y3",
+       "meaning": "capture",
+       "passUlo": 0,
+       "captured": 3,
+       "oppName": "L3"
+      },
+      {
+       "house": "Y4",
+       "size": 3,
+       "lands": "ulo",
+       "meaning": "extra",
+       "passUlo": 1
+      }
+     ],
+     "typicality": 0.046
+    },
+    {
+     "day": "Monday",
+     "seed": "spike-b",
+     "candidate": 751,
+     "board": {
+      "Y": [
+       0,
+       1,
+       0,
+       4,
+       0,
+       4,
+       3
+      ],
+      "L": [
+       0,
+       2,
+       1,
+       2,
+       4,
+       0,
+       4
+      ]
+     },
+     "par": 6,
+     "perfectLines": 1,
+     "sowingsInPar": [
+      2,
+      2
+     ],
+     "greedyScore": 6,
+     "greedyGap": 0,
+     "greedyMoves": [
+      "Y3",
+      "Y1"
+     ],
+     "greedyTrace": {
+      "steps": [
+       {
+        "house": "Y3",
+        "handfuls": [
+         {
+          "from": "Y3",
+          "size": 4,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y1",
+        "handfuls": [
+         {
+          "from": "Y1",
+          "size": 1,
+          "lands": "Y2",
+          "passUlo": 0,
+          "meaning": "capture",
+          "captured": 4,
+          "oppName": "L4"
+         }
+        ],
+        "gained": 5,
+        "outcome": "capture"
+       }
+      ],
+      "swept": 0,
+      "score": 6
+     },
+     "relayAwareScore": 6,
+     "randomParRate": "1/16",
+     "randomParRateFloat": 0.0625,
+     "positionsSearched": 2,
+     "easiest": {
+      "moves": [
+       "Y3",
+       "Y1"
+      ],
+      "outcomes": [
+       "extra",
+       "capture"
+      ],
+      "maxHandful": 4,
+      "relaySegments": 0,
+      "totalDrops": 5,
+      "captures": 1,
+      "relayExtras": 0
+     },
+     "lines": [
+      {
+       "moves": [
+        "Y3",
+        "Y1"
+       ],
+       "steps": [
+        {
+         "house": "Y3",
+         "handfuls": [
+          {
+           "from": "Y3",
+           "size": 4,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y1",
+         "handfuls": [
+          {
+           "from": "Y1",
+           "size": 1,
+           "lands": "Y2",
+           "passUlo": 0,
+           "meaning": "capture",
+           "captured": 4,
+           "oppName": "L4"
+          }
+         ],
+         "gained": 5,
+         "outcome": "capture"
+        }
+       ],
+       "swept": 0,
+       "score": 6,
+       "relaySegments": 0,
+       "maxHandful": 4,
+       "totalDrops": 5,
+       "captures": 1
+      }
+     ],
+     "preview": {
+      "oneTryScore": 6,
+      "oneTryMoves": [
+       "Y3",
+       "Y1"
+      ],
+      "within3": 1
+     },
+     "opening": [
+      {
+       "house": "Y1",
+       "size": 1,
+       "lands": "Y2",
+       "meaning": "capture",
+       "passUlo": 0,
+       "captured": 4,
+       "oppName": "L4"
+      },
+      {
+       "house": "Y3",
+       "size": 4,
+       "lands": "ulo",
+       "meaning": "extra",
+       "passUlo": 1
+      },
+      {
+       "house": "Y5",
+       "size": 4,
+       "lands": "L1",
+       "meaning": "relay",
+       "passUlo": 1
+      },
+      {
+       "house": "Y6",
+       "size": 3,
+       "lands": "L1",
+       "meaning": "relay",
+       "passUlo": 1
+      }
+     ],
+     "typicality": 0.597
+    }
+   ],
+   "medians": {
+    "par": 6,
+    "sowingsMin": 3,
+    "log10rand": -1.301,
+    "drops": 5
+   },
+   "poolSize": 956
+  },
+  "Wednesday": {
+   "picks": [
+    {
+     "day": "Wednesday",
+     "seed": "spike-c",
+     "candidate": 200,
+     "board": {
+      "Y": [
+       1,
+       1,
+       3,
+       0,
+       0,
+       1,
+       0
+      ],
+      "L": [
+       4,
+       1,
+       0,
+       0,
+       2,
+       0,
+       3
+      ]
+     },
+     "par": 7,
+     "perfectLines": 1,
+     "sowingsInPar": [
+      3,
+      3
+     ],
+     "greedyScore": 5,
+     "greedyGap": 2,
+     "greedyMoves": [
+      "Y5"
+     ],
+     "greedyTrace": {
+      "steps": [
+       {
+        "house": "Y5",
+        "handfuls": [
+         {
+          "from": "Y5",
+          "size": 1,
+          "lands": "Y6",
+          "passUlo": 0,
+          "meaning": "capture",
+          "captured": 4,
+          "oppName": "L0"
+         }
+        ],
+        "gained": 5,
+        "outcome": "capture"
+       }
+      ],
+      "swept": 0,
+      "score": 5
+     },
+     "relayAwareScore": 7,
+     "randomParRate": "1/80",
+     "randomParRateFloat": 0.0125,
+     "positionsSearched": 3,
+     "easiest": {
+      "moves": [
+       "Y2",
+       "Y6",
+       "Y3"
+      ],
+      "outcomes": [
+       "extra",
+       "extra",
+       "capture"
+      ],
+      "maxHandful": 3,
+      "relaySegments": 2,
+      "totalDrops": 9,
+      "captures": 1,
+      "relayExtras": 1
+     },
+     "lines": [
+      {
+       "moves": [
+        "Y2",
+        "Y6",
+        "Y3"
+       ],
+       "steps": [
+        {
+         "house": "Y2",
+         "handfuls": [
+          {
+           "from": "Y2",
+           "size": 3,
+           "lands": "Y5",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 1
+          },
+          {
+           "from": "Y5",
+           "size": 2,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y3",
+         "handfuls": [
+          {
+           "from": "Y3",
+           "size": 1,
+           "lands": "Y4",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 1
+          },
+          {
+           "from": "Y4",
+           "size": 2,
+           "lands": "Y6",
+           "passUlo": 0,
+           "meaning": "capture",
+           "captured": 4,
+           "oppName": "L0"
+          }
+         ],
+         "gained": 5,
+         "outcome": "capture"
+        }
+       ],
+       "swept": 0,
+       "score": 7,
+       "relaySegments": 2,
+       "maxHandful": 3,
+       "totalDrops": 9,
+       "captures": 1
+      }
+     ],
+     "preview": {
+      "oneTryScore": 5,
+      "oneTryMoves": [
+       "Y5"
+      ],
+      "within3": 0
+     },
+     "opening": [
+      {
+       "house": "Y0",
+       "size": 1,
+       "lands": "Y1",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y1",
+       "size": 1,
+       "lands": "Y2",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y2",
+       "size": 3,
+       "lands": "Y5",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y5",
+       "size": 1,
+       "lands": "Y6",
+       "meaning": "capture",
+       "passUlo": 0,
+       "captured": 4,
+       "oppName": "L0"
+      }
+     ],
+     "typicality": 0
+    },
+    {
+     "day": "Wednesday",
+     "seed": "spike-a",
+     "candidate": 494,
+     "board": {
+      "Y": [
+       2,
+       2,
+       0,
+       1,
+       2,
+       1,
+       2
+      ],
+      "L": [
+       0,
+       0,
+       2,
+       2,
+       4,
+       2,
+       0
+      ]
+     },
+     "par": 7,
+     "perfectLines": 1,
+     "sowingsInPar": [
+      3,
+      3
+     ],
+     "greedyScore": 5,
+     "greedyGap": 2,
+     "greedyMoves": [
+      "Y0"
+     ],
+     "greedyTrace": {
+      "steps": [
+       {
+        "house": "Y0",
+        "handfuls": [
+         {
+          "from": "Y0",
+          "size": 2,
+          "lands": "Y2",
+          "passUlo": 0,
+          "meaning": "capture",
+          "captured": 4,
+          "oppName": "L4"
+         }
+        ],
+        "gained": 5,
+        "outcome": "capture"
+       }
+      ],
+      "swept": 0,
+      "score": 5
+     },
+     "relayAwareScore": 7,
+     "randomParRate": "1/72",
+     "randomParRateFloat": 0.013888888888888888,
+     "positionsSearched": 5,
+     "easiest": {
+      "moves": [
+       "Y3",
+       "Y5",
+       "Y0"
+      ],
+      "outcomes": [
+       "extra",
+       "extra",
+       "capture"
+      ],
+      "maxHandful": 3,
+      "relaySegments": 1,
+      "totalDrops": 8,
+      "captures": 1,
+      "relayExtras": 1
+     },
+     "lines": [
+      {
+       "moves": [
+        "Y3",
+        "Y5",
+        "Y0"
+       ],
+       "steps": [
+        {
+         "house": "Y3",
+         "handfuls": [
+          {
+           "from": "Y3",
+           "size": 1,
+           "lands": "Y4",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 2
+          },
+          {
+           "from": "Y4",
+           "size": 3,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y5",
+         "handfuls": [
+          {
+           "from": "Y5",
+           "size": 2,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y0",
+         "handfuls": [
+          {
+           "from": "Y0",
+           "size": 2,
+           "lands": "Y2",
+           "passUlo": 0,
+           "meaning": "capture",
+           "captured": 4,
+           "oppName": "L4"
+          }
+         ],
+         "gained": 5,
+         "outcome": "capture"
+        }
+       ],
+       "swept": 0,
+       "score": 7,
+       "relaySegments": 1,
+       "maxHandful": 3,
+       "totalDrops": 8,
+       "captures": 1
+      }
+     ],
+     "preview": {
+      "oneTryScore": 5,
+      "oneTryMoves": [
+       "Y0"
+      ],
+      "within3": 0
+     },
+     "opening": [
+      {
+       "house": "Y0",
+       "size": 2,
+       "lands": "Y2",
+       "meaning": "capture",
+       "passUlo": 0,
+       "captured": 4,
+       "oppName": "L4"
+      },
+      {
+       "house": "Y1",
+       "size": 2,
+       "lands": "Y3",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y3",
+       "size": 1,
+       "lands": "Y4",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y4",
+       "size": 2,
+       "lands": "Y6",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y5",
+       "size": 1,
+       "lands": "Y6",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y6",
+       "size": 2,
+       "lands": "L0",
+       "meaning": "end",
+       "passUlo": 1
+      }
+     ],
+     "typicality": 0.242
+    },
+    {
+     "day": "Wednesday",
+     "seed": "spike-b",
+     "candidate": 321,
+     "board": {
+      "Y": [
+       1,
+       4,
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      "L": [
+       0,
+       1,
+       2,
+       0,
+       2,
+       4,
+       0
+      ]
+     },
+     "par": 7,
+     "perfectLines": 1,
+     "sowingsInPar": [
+      3,
+      3
+     ],
+     "greedyScore": 5,
+     "greedyGap": 2,
+     "greedyMoves": [
+      "Y4",
+      "Y6",
+      "Y3"
+     ],
+     "greedyTrace": {
+      "steps": [
+       {
+        "house": "Y4",
+        "handfuls": [
+         {
+          "from": "Y4",
+          "size": 1,
+          "lands": "Y5",
+          "passUlo": 0,
+          "meaning": "relay",
+          "had": 1
+         },
+         {
+          "from": "Y5",
+          "size": 2,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y6",
+        "handfuls": [
+         {
+          "from": "Y6",
+          "size": 1,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y3",
+        "handfuls": [
+         {
+          "from": "Y3",
+          "size": 1,
+          "lands": "Y4",
+          "passUlo": 0,
+          "meaning": "capture",
+          "captured": 2,
+          "oppName": "L2"
+         }
+        ],
+        "gained": 3,
+        "outcome": "capture"
+       }
+      ],
+      "swept": 0,
+      "score": 5
+     },
+     "relayAwareScore": 5,
+     "randomParRate": "1/100",
+     "randomParRateFloat": 0.01,
+     "positionsSearched": 5,
+     "easiest": {
+      "moves": [
+       "Y1",
+       "Y6",
+       "Y0"
+      ],
+      "outcomes": [
+       "extra",
+       "extra",
+       "capture"
+      ],
+      "maxHandful": 4,
+      "relaySegments": 1,
+      "totalDrops": 8,
+      "captures": 1,
+      "relayExtras": 1
+     },
+     "lines": [
+      {
+       "moves": [
+        "Y1",
+        "Y6",
+        "Y0"
+       ],
+       "steps": [
+        {
+         "house": "Y1",
+         "handfuls": [
+          {
+           "from": "Y1",
+           "size": 4,
+           "lands": "Y5",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 1
+          },
+          {
+           "from": "Y5",
+           "size": 2,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y0",
+         "handfuls": [
+          {
+           "from": "Y0",
+           "size": 1,
+           "lands": "Y1",
+           "passUlo": 0,
+           "meaning": "capture",
+           "captured": 4,
+           "oppName": "L5"
+          }
+         ],
+         "gained": 5,
+         "outcome": "capture"
+        }
+       ],
+       "swept": 0,
+       "score": 7,
+       "relaySegments": 1,
+       "maxHandful": 4,
+       "totalDrops": 8,
+       "captures": 1
+      }
+     ],
+     "preview": {
+      "oneTryScore": 5,
+      "oneTryMoves": [
+       "Y4",
+       "Y6",
+       "Y3"
+      ],
+      "within3": 3
+     },
+     "opening": [
+      {
+       "house": "Y0",
+       "size": 1,
+       "lands": "Y1",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y1",
+       "size": 4,
+       "lands": "Y5",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y3",
+       "size": 1,
+       "lands": "Y4",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y4",
+       "size": 1,
+       "lands": "Y5",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y5",
+       "size": 1,
+       "lands": "Y6",
+       "meaning": "dud",
+       "passUlo": 0,
+       "oppName": "L0"
+      }
+     ],
+     "typicality": 0.29
+    },
+    {
+     "day": "Wednesday",
+     "seed": "spike-b",
+     "candidate": 27,
+     "board": {
+      "Y": [
+       1,
+       2,
+       1,
+       0,
+       2,
+       0,
+       0
+      ],
+      "L": [
+       0,
+       0,
+       4,
+       1,
+       7,
+       2,
+       0
+      ]
+     },
+     "par": 7,
+     "perfectLines": 2,
+     "sowingsInPar": [
+      3,
+      3
+     ],
+     "greedyScore": 2,
+     "greedyGap": 5,
+     "greedyMoves": [
+      "Y2"
+     ],
+     "greedyTrace": {
+      "steps": [
+       {
+        "house": "Y2",
+        "handfuls": [
+         {
+          "from": "Y2",
+          "size": 1,
+          "lands": "Y3",
+          "passUlo": 0,
+          "meaning": "capture",
+          "captured": 1,
+          "oppName": "L3"
+         }
+        ],
+        "gained": 2,
+        "outcome": "capture"
+       }
+      ],
+      "swept": 0,
+      "score": 2
+     },
+     "relayAwareScore": 7,
+     "randomParRate": "1/24",
+     "randomParRateFloat": 0.041666666666666664,
+     "positionsSearched": 3,
+     "easiest": {
+      "moves": [
+       "Y0",
+       "Y6",
+       "Y3"
+      ],
+      "outcomes": [
+       "extra",
+       "extra",
+       "capture"
+      ],
+      "maxHandful": 3,
+      "relaySegments": 2,
+      "totalDrops": 9,
+      "captures": 1,
+      "relayExtras": 1
+     },
+     "lines": [
+      {
+       "moves": [
+        "Y0",
+        "Y6",
+        "Y2"
+       ],
+       "steps": [
+        {
+         "house": "Y0",
+         "handfuls": [
+          {
+           "from": "Y0",
+           "size": 1,
+           "lands": "Y1",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 2
+          },
+          {
+           "from": "Y1",
+           "size": 3,
+           "lands": "Y4",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 2
+          },
+          {
+           "from": "Y4",
+           "size": 3,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y2",
+         "handfuls": [
+          {
+           "from": "Y2",
+           "size": 2,
+           "lands": "Y4",
+           "passUlo": 0,
+           "meaning": "capture",
+           "captured": 4,
+           "oppName": "L2"
+          }
+         ],
+         "gained": 5,
+         "outcome": "capture"
+        }
+       ],
+       "swept": 0,
+       "score": 7,
+       "relaySegments": 2,
+       "maxHandful": 3,
+       "totalDrops": 10,
+       "captures": 1
+      },
+      {
+       "moves": [
+        "Y0",
+        "Y6",
+        "Y3"
+       ],
+       "steps": [
+        {
+         "house": "Y0",
+         "handfuls": [
+          {
+           "from": "Y0",
+           "size": 1,
+           "lands": "Y1",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 2
+          },
+          {
+           "from": "Y1",
+           "size": 3,
+           "lands": "Y4",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 2
+          },
+          {
+           "from": "Y4",
+           "size": 3,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y3",
+         "handfuls": [
+          {
+           "from": "Y3",
+           "size": 1,
+           "lands": "Y4",
+           "passUlo": 0,
+           "meaning": "capture",
+           "captured": 4,
+           "oppName": "L2"
+          }
+         ],
+         "gained": 5,
+         "outcome": "capture"
+        }
+       ],
+       "swept": 0,
+       "score": 7,
+       "relaySegments": 2,
+       "maxHandful": 3,
+       "totalDrops": 9,
+       "captures": 1
+      }
+     ],
+     "preview": {
+      "oneTryScore": 2,
+      "oneTryMoves": [
+       "Y2"
+      ],
+      "within3": 3
+     },
+     "opening": [
+      {
+       "house": "Y0",
+       "size": 1,
+       "lands": "Y1",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y1",
+       "size": 2,
+       "lands": "Y3",
+       "meaning": "capture",
+       "passUlo": 0,
+       "captured": 1,
+       "oppName": "L3"
+      },
+      {
+       "house": "Y2",
+       "size": 1,
+       "lands": "Y3",
+       "meaning": "capture",
+       "passUlo": 0,
+       "captured": 1,
+       "oppName": "L3"
+      },
+      {
+       "house": "Y4",
+       "size": 2,
+       "lands": "Y6",
+       "meaning": "dud",
+       "passUlo": 0,
+       "oppName": "L0"
+      }
+     ],
+     "typicality": 0.485
+    }
+   ],
+   "medians": {
+    "par": 7,
+    "sowingsMin": 3,
+    "log10rand": -1.903,
+    "drops": 9
+   },
+   "poolSize": 710
+  },
+  "Saturday": {
+   "picks": [
+    {
+     "day": "Saturday",
+     "seed": "spike-a",
+     "candidate": 21,
+     "board": {
+      "Y": [
+       1,
+       1,
+       1,
+       1,
+       2,
+       1,
+       1
+      ],
+      "L": [
+       0,
+       0,
+       0,
+       3,
+       0,
+       7,
+       0
+      ]
+     },
+     "par": 13,
+     "perfectLines": 1,
+     "sowingsInPar": [
+      6,
+      6
+     ],
+     "greedyScore": 9,
+     "greedyGap": 4,
+     "greedyMoves": [
+      "Y6",
+      "Y3",
+      "Y6",
+      "Y5",
+      "Y6",
+      "Y2"
+     ],
+     "greedyTrace": {
+      "steps": [
+       {
+        "house": "Y6",
+        "handfuls": [
+         {
+          "from": "Y6",
+          "size": 1,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y3",
+        "handfuls": [
+         {
+          "from": "Y3",
+          "size": 1,
+          "lands": "Y4",
+          "passUlo": 0,
+          "meaning": "relay",
+          "had": 2
+         },
+         {
+          "from": "Y4",
+          "size": 3,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y6",
+        "handfuls": [
+         {
+          "from": "Y6",
+          "size": 1,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y5",
+        "handfuls": [
+         {
+          "from": "Y5",
+          "size": 2,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y6",
+        "handfuls": [
+         {
+          "from": "Y6",
+          "size": 1,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y2",
+        "handfuls": [
+         {
+          "from": "Y2",
+          "size": 1,
+          "lands": "Y3",
+          "passUlo": 0,
+          "meaning": "capture",
+          "captured": 3,
+          "oppName": "L3"
+         }
+        ],
+        "gained": 4,
+        "outcome": "capture"
+       }
+      ],
+      "swept": 0,
+      "score": 9
+     },
+     "relayAwareScore": 9,
+     "randomParRate": "1/3024",
+     "randomParRateFloat": 0.00033068783068783067,
+     "positionsSearched": 30,
+     "easiest": {
+      "moves": [
+       "Y6",
+       "Y1",
+       "Y6",
+       "Y5",
+       "Y6",
+       "Y0"
+      ],
+      "outcomes": [
+       "extra",
+       "extra",
+       "extra",
+       "extra",
+       "extra",
+       "capture"
+      ],
+      "maxHandful": 3,
+      "relaySegments": 2,
+      "totalDrops": 12,
+      "captures": 1,
+      "relayExtras": 1
+     },
+     "lines": [
+      {
+       "moves": [
+        "Y6",
+        "Y1",
+        "Y6",
+        "Y5",
+        "Y6",
+        "Y0"
+       ],
+       "steps": [
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y1",
+         "handfuls": [
+          {
+           "from": "Y1",
+           "size": 1,
+           "lands": "Y2",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 1
+          },
+          {
+           "from": "Y2",
+           "size": 2,
+           "lands": "Y4",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 2
+          },
+          {
+           "from": "Y4",
+           "size": 3,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y5",
+         "handfuls": [
+          {
+           "from": "Y5",
+           "size": 2,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y0",
+         "handfuls": [
+          {
+           "from": "Y0",
+           "size": 1,
+           "lands": "Y1",
+           "passUlo": 0,
+           "meaning": "capture",
+           "captured": 7,
+           "oppName": "L5"
+          }
+         ],
+         "gained": 8,
+         "outcome": "capture"
+        }
+       ],
+       "swept": 0,
+       "score": 13,
+       "relaySegments": 2,
+       "maxHandful": 3,
+       "totalDrops": 12,
+       "captures": 1
+      }
+     ],
+     "preview": {
+      "oneTryScore": 9,
+      "oneTryMoves": [
+       "Y6",
+       "Y3",
+       "Y6",
+       "Y5",
+       "Y6",
+       "Y2"
+      ],
+      "within3": 0
+     },
+     "opening": [
+      {
+       "house": "Y0",
+       "size": 1,
+       "lands": "Y1",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y1",
+       "size": 1,
+       "lands": "Y2",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y2",
+       "size": 1,
+       "lands": "Y3",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y3",
+       "size": 1,
+       "lands": "Y4",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y4",
+       "size": 2,
+       "lands": "Y6",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y5",
+       "size": 1,
+       "lands": "Y6",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y6",
+       "size": 1,
+       "lands": "ulo",
+       "meaning": "extra",
+       "passUlo": 1
+      }
+     ],
+     "typicality": 0.137
+    },
+    {
+     "day": "Saturday",
+     "seed": "spike-c",
+     "candidate": 152,
+     "board": {
+      "Y": [
+       2,
+       1,
+       1,
+       1,
+       2,
+       1,
+       1
+      ],
+      "L": [
+       8,
+       0,
+       0,
+       0,
+       0,
+       7,
+       0
+      ]
+     },
+     "par": 14,
+     "perfectLines": 2,
+     "sowingsInPar": [
+      6,
+      6
+     ],
+     "greedyScore": 10,
+     "greedyGap": 4,
+     "greedyMoves": [
+      "Y6",
+      "Y5"
+     ],
+     "greedyTrace": {
+      "steps": [
+       {
+        "house": "Y6",
+        "handfuls": [
+         {
+          "from": "Y6",
+          "size": 1,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y5",
+        "handfuls": [
+         {
+          "from": "Y5",
+          "size": 1,
+          "lands": "Y6",
+          "passUlo": 0,
+          "meaning": "capture",
+          "captured": 8,
+          "oppName": "L0"
+         }
+        ],
+        "gained": 9,
+        "outcome": "capture"
+       }
+      ],
+      "swept": 0,
+      "score": 10
+     },
+     "relayAwareScore": 5,
+     "randomParRate": "1/2016",
+     "randomParRateFloat": 0.000496031746031746,
+     "positionsSearched": 35,
+     "easiest": {
+      "moves": [
+       "Y6",
+       "Y2",
+       "Y6",
+       "Y4",
+       "Y6",
+       "Y5"
+      ],
+      "outcomes": [
+       "extra",
+       "extra",
+       "extra",
+       "extra",
+       "extra",
+       "capture"
+      ],
+      "maxHandful": 3,
+      "relaySegments": 2,
+      "totalDrops": 12,
+      "captures": 1,
+      "relayExtras": 1
+     },
+     "lines": [
+      {
+       "moves": [
+        "Y6",
+        "Y0",
+        "Y6",
+        "Y5",
+        "Y6",
+        "Y1"
+       ],
+       "steps": [
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y0",
+         "handfuls": [
+          {
+           "from": "Y0",
+           "size": 2,
+           "lands": "Y2",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 1
+          },
+          {
+           "from": "Y2",
+           "size": 2,
+           "lands": "Y4",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 2
+          },
+          {
+           "from": "Y4",
+           "size": 3,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y5",
+         "handfuls": [
+          {
+           "from": "Y5",
+           "size": 2,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y1",
+         "handfuls": [
+          {
+           "from": "Y1",
+           "size": 2,
+           "lands": "Y3",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 2
+          },
+          {
+           "from": "Y3",
+           "size": 3,
+           "lands": "Y6",
+           "passUlo": 0,
+           "meaning": "capture",
+           "captured": 8,
+           "oppName": "L0"
+          }
+         ],
+         "gained": 9,
+         "outcome": "capture"
+        }
+       ],
+       "swept": 0,
+       "score": 14,
+       "relaySegments": 3,
+       "maxHandful": 3,
+       "totalDrops": 17,
+       "captures": 1
+      },
+      {
+       "moves": [
+        "Y6",
+        "Y2",
+        "Y6",
+        "Y4",
+        "Y6",
+        "Y5"
+       ],
+       "steps": [
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y2",
+         "handfuls": [
+          {
+           "from": "Y2",
+           "size": 1,
+           "lands": "Y3",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 1
+          },
+          {
+           "from": "Y3",
+           "size": 2,
+           "lands": "Y5",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 1
+          },
+          {
+           "from": "Y5",
+           "size": 2,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y4",
+         "handfuls": [
+          {
+           "from": "Y4",
+           "size": 3,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y5",
+         "handfuls": [
+          {
+           "from": "Y5",
+           "size": 1,
+           "lands": "Y6",
+           "passUlo": 0,
+           "meaning": "capture",
+           "captured": 8,
+           "oppName": "L0"
+          }
+         ],
+         "gained": 9,
+         "outcome": "capture"
+        }
+       ],
+       "swept": 0,
+       "score": 14,
+       "relaySegments": 2,
+       "maxHandful": 3,
+       "totalDrops": 12,
+       "captures": 1
+      }
+     ],
+     "preview": {
+      "oneTryScore": 10,
+      "oneTryMoves": [
+       "Y6",
+       "Y5"
+      ],
+      "within3": 0
+     },
+     "opening": [
+      {
+       "house": "Y0",
+       "size": 2,
+       "lands": "Y2",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y1",
+       "size": 1,
+       "lands": "Y2",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y2",
+       "size": 1,
+       "lands": "Y3",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y3",
+       "size": 1,
+       "lands": "Y4",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y4",
+       "size": 2,
+       "lands": "Y6",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y5",
+       "size": 1,
+       "lands": "Y6",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y6",
+       "size": 1,
+       "lands": "ulo",
+       "meaning": "extra",
+       "passUlo": 1
+      }
+     ],
+     "typicality": 0.335
+    },
+    {
+     "day": "Saturday",
+     "seed": "spike-b",
+     "candidate": 858,
+     "board": {
+      "Y": [
+       1,
+       2,
+       5,
+       1,
+       3,
+       0,
+       0
+      ],
+      "L": [
+       0,
+       0,
+       0,
+       0,
+       3,
+       8,
+       0
+      ]
+     },
+     "par": 13,
+     "perfectLines": 1,
+     "sowingsInPar": [
+      5,
+      5
+     ],
+     "greedyScore": 6,
+     "greedyGap": 7,
+     "greedyMoves": [
+      "Y4",
+      "Y6",
+      "Y2",
+      "Y6",
+      "Y5",
+      "Y6",
+      "Y4"
+     ],
+     "greedyTrace": {
+      "steps": [
+       {
+        "house": "Y4",
+        "handfuls": [
+         {
+          "from": "Y4",
+          "size": 3,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y6",
+        "handfuls": [
+         {
+          "from": "Y6",
+          "size": 1,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y2",
+        "handfuls": [
+         {
+          "from": "Y2",
+          "size": 5,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y6",
+        "handfuls": [
+         {
+          "from": "Y6",
+          "size": 1,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y5",
+        "handfuls": [
+         {
+          "from": "Y5",
+          "size": 2,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y6",
+        "handfuls": [
+         {
+          "from": "Y6",
+          "size": 1,
+          "lands": "ulo",
+          "passUlo": 1,
+          "meaning": "extra"
+         }
+        ],
+        "gained": 1,
+        "outcome": "extra"
+       },
+       {
+        "house": "Y4",
+        "handfuls": [
+         {
+          "from": "Y4",
+          "size": 1,
+          "lands": "Y5",
+          "passUlo": 0,
+          "meaning": "dud",
+          "oppName": "L1",
+          "oppBurnt": false
+         }
+        ],
+        "gained": 0,
+        "outcome": "dud"
+       }
+      ],
+      "swept": 0,
+      "score": 6
+     },
+     "relayAwareScore": 6,
+     "randomParRate": "1/1800",
+     "randomParRateFloat": 0.0005555555555555556,
+     "positionsSearched": 18,
+     "easiest": {
+      "moves": [
+       "Y4",
+       "Y6",
+       "Y1",
+       "Y6",
+       "Y0"
+      ],
+      "outcomes": [
+       "extra",
+       "extra",
+       "extra",
+       "extra",
+       "capture"
+      ],
+      "maxHandful": 3,
+      "relaySegments": 2,
+      "totalDrops": 12,
+      "captures": 1,
+      "relayExtras": 1
+     },
+     "lines": [
+      {
+       "moves": [
+        "Y4",
+        "Y6",
+        "Y1",
+        "Y6",
+        "Y0"
+       ],
+       "steps": [
+        {
+         "house": "Y4",
+         "handfuls": [
+          {
+           "from": "Y4",
+           "size": 3,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y1",
+         "handfuls": [
+          {
+           "from": "Y1",
+           "size": 2,
+           "lands": "Y3",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 1
+          },
+          {
+           "from": "Y3",
+           "size": 2,
+           "lands": "Y5",
+           "passUlo": 0,
+           "meaning": "relay",
+           "had": 1
+          },
+          {
+           "from": "Y5",
+           "size": 2,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y6",
+         "handfuls": [
+          {
+           "from": "Y6",
+           "size": 1,
+           "lands": "ulo",
+           "passUlo": 1,
+           "meaning": "extra"
+          }
+         ],
+         "gained": 1,
+         "outcome": "extra"
+        },
+        {
+         "house": "Y0",
+         "handfuls": [
+          {
+           "from": "Y0",
+           "size": 1,
+           "lands": "Y1",
+           "passUlo": 0,
+           "meaning": "capture",
+           "captured": 8,
+           "oppName": "L5"
+          }
+         ],
+         "gained": 9,
+         "outcome": "capture"
+        }
+       ],
+       "swept": 0,
+       "score": 13,
+       "relaySegments": 2,
+       "maxHandful": 3,
+       "totalDrops": 12,
+       "captures": 1
+      }
+     ],
+     "preview": {
+      "oneTryScore": 6,
+      "oneTryMoves": [
+       "Y4",
+       "Y6",
+       "Y2",
+       "Y6",
+       "Y5",
+       "Y6",
+       "Y1"
+      ],
+      "within3": 0
+     },
+     "opening": [
+      {
+       "house": "Y0",
+       "size": 1,
+       "lands": "Y1",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y1",
+       "size": 2,
+       "lands": "Y3",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y2",
+       "size": 5,
+       "lands": "ulo",
+       "meaning": "extra",
+       "passUlo": 1
+      },
+      {
+       "house": "Y3",
+       "size": 1,
+       "lands": "Y4",
+       "meaning": "relay",
+       "passUlo": 0
+      },
+      {
+       "house": "Y4",
+       "size": 3,
+       "lands": "ulo",
+       "meaning": "extra",
+       "passUlo": 1
+      }
+     ],
+     "typicality": 0.37
+    }
+   ],
+   "medians": {
+    "par": 13,
+    "sowingsMin": 6,
+    "log10rand": -3.303,
+    "drops": 12
+   },
+   "poolSize": 480
+  }
+ }
+}
