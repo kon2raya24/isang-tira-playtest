@@ -45,7 +45,7 @@ Everything comes from `src/engine.mjs` (rules R1–R8, as tested in `test/engine
 1. **Start**
    - Title and a one-line purpose.
    - An optional initials field (at most 12 characters).
-   - Five rule cards, next to a small looping demo board. The demo runs `sowEvents` on a fixed demo position and shows a relay into the ulo, then an extra turn.
+   - Five rule cards, next to a small looping demo board. The demo runs `sowEvents` on four fixed positions, one rule each: a direct extra turn, a relay that ends in a capture, a sowing that passes the ulo and ends on Lola's side, and a dud. It deliberately never shows a relay into the ulo: every Wednesday perfect line opens with one, so demoing it would teach the answers the playtest measures (G3). Amended 2026-09-25.
    - A **Start** button.
 2. **Group**
    - `?group=A` or `?group=B` forces the group.

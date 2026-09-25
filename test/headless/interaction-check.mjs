@@ -49,6 +49,13 @@ try {
   await page.key('1', { code: 'Digit1', keyCode: 49, text: '1' });
   await sleep(100);
   check(await q(`!!document.querySelector('#b [data-slot="0"].sel')`), 'a plain 1 still previews Y0');
+  const before = await q(`[...document.querySelectorAll('#b [data-slot] .num')].map((n) => n.textContent).join(' ')`);
+  await page.key('5', { code: 'Digit5', keyCode: 53, text: '5' });
+  await sleep(80);
+  await page.key('5', { code: 'Digit5', keyCode: 53, text: '5', autoRepeat: true });
+  await sleep(300);
+  const after = await q(`[...document.querySelectorAll('#b [data-slot] .num')].map((n) => n.textContent).join(' ')`);
+  check((await q(`!!document.querySelector('#b [data-slot="4"].sel')`)) && after === before, 'holding 5 previews Y4 but never sows it');
 
   // 4. Results: focus moves to the heading; a double-click on Start over does not erase progress.
   await page.load(`${base}?test=1&group=A&prefer=ws&why=x&script=${encodeURIComponent(fullScript)}`);

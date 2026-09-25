@@ -636,7 +636,7 @@ document.addEventListener('pointerdown', () => { if (activeCtx) activeCtx.speed 
 
 document.addEventListener('keydown', (ev) => {
   if (ev.target.closest?.('input, textarea')) return;
-  if (ev.repeat && (ev.key === 'Enter' || ev.key === ' ')) { ev.preventDefault(); return; } // a held key never chooses
+  if (ev.repeat && /^([1-7]|Enter| )$/.test(ev.key)) { ev.preventDefault(); return; } // a held key never chooses or sows
   if (activeCtx && (ev.key === ' ' || ev.key === 'Enter')) activeCtx.speed = 4;
   if (ev.ctrlKey || ev.metaKey || ev.altKey) return; // leave browser shortcuts alone
   if (!ui || !ui.$b || !ui.$b.isConnected || !session || session.phase !== 'play' || ui.busy) return;
